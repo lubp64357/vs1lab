@@ -29,6 +29,28 @@
             <form id="tag-form" action="/tagging" method="post">
 
                 <!-- ... your code here ... -->
+                <fieldset name="Tagging-Formular">
+                    <legend>Enter new tag</legend>
+                    <div class="tag_formular">
+                        <label>Latitude
+                            <input id="latitude" type="number" step="any" name="latitude" placeholder="49.01379" required>
+                        </label>
+                        <label>
+                            Longitude
+                            <input id="longitude" type="number" step="any" name="longtitude" placeholder="8.390071" required>
+                        </label>
+                        <label>
+                            Name:
+                            <input id="name" type="text" step="any" name="name" placeholder="e.g. Central Berlin" maxlength="10" required>
+                        </label>
+                        <label>
+                            Hashtag:
+                            <input id="hashtag" type="text" step="any" name="hashtag" placeholder="e. g. #ber" pattern="^#[a-zA-Z]{1,10}">
+                        </label>
+                        <input type="submit" value="Add Tag">
+                    </div>
+                </fieldset>
+                <!-- ... your code here ... -->
 
             </form>
             <!-- ############### VS1Lab 1a Form 1 End -->
