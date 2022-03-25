@@ -49,6 +49,9 @@ a {
 /* ... your code here ... */
 
 
+/* ... your code here ... */
+
+
 /* Grid styles (no changes required) */
 
 .row {
@@ -108,13 +111,102 @@ a {
 
 
 /* ### TODO ### Styles for Header Component */
+.main{
+  display:flex;
+  flex-direction: row;
+  /*flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: flex-start;
+}
 
-/* ... your code here ... */
+ul{
+  float:left;
+  list-style-type: none;
+  margin: 10px;
+}
+.discovery__map{
+  float:right;
+  margin: 14px;
+  margin-right:30px;
+}
 
+.main_tagging{
+  order: 1;
+  flex-basis: 25%;
+  float:left;
+}
+.main_discovery{
+  order: 1;
+  flex-basis:73%;
+  float:left;
+}
+input[type="text"]{
+  padding: 5px;
+}
+
+header{
+  background-color:#e3e3e3;
+  color:black;
+  padding:10px;
+}
+footer {
+  background-color: #e3e3e3;
+  color: black;
+  padding: 10px;
+}
+.tag_formular{
+  display:block;
+  margin-top: 3px;
+  margin-bottom:3px;
+}
+#addTag{
+  margin-top:15px;
+  padding:5xp;
+}
+label{
+  line-height: 1.5;
+}
+li{
+  background-color: #e3e3e3;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 5px;
+}
+
+@media screen and (min-width: 850px) {
+  .main_tagging{
+    order: 0;
+    flex-basis: 100%;
+    float: left;
+  }
+  .main_discovery{
+    order: 1;
+    flex-basis: 100%;
+    float: left;
+  }
+  ul{
+    flex-basis: 100%;
+    order: 3;
+  }
+  .discovery__map{
+    flex-basis: 100%;
+    float: left;
+    margin: 14px;
+    margin-right: 30px;
+    order: 4;
+  }
+  .main{
+    display:flex;
+    flex-direction: left;
+    margin: 14px;
+    margin-right: 30px;
+    order: 4;
+  }
+
+}
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
 
 
 /* ### TODO ### Styles for Tagging component */
@@ -129,9 +221,8 @@ a {
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
+
 
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
