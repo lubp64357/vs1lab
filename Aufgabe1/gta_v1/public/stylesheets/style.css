@@ -56,6 +56,7 @@ footer {
   padding: 20px;
 }
 input {
+  
   display: block;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -67,23 +68,27 @@ legend {
 
 .tag_formular{
   margin-left: 10px;
+  margin-right: 20px;
 }
 .discovery_formular{
   margin-left: 10px;
 }
 li {
-  padding: 5px;
-  margin: bottom 10px;
+  padding: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
   color: blue;
   background-color:#d6d6d6;
+  margin-top: 10px;
 }
 ul{
   list-style-type: none;
-  margin: 10px;
-  padding: 10px;
+  margin-top: 20px;
 }
 .discovery__map{
   margin-top: 10px;
+  margin-left: 10px;
 }
 .main{
   display: flex;
@@ -106,6 +111,45 @@ ul{
 .header__title{
   margin-top: 10px;
   margin-left: auto;
+}
+
+label {
+  color:gray;
+}
+#addTag{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
+  padding: 10px;
+  padding-left: 37%;
+  padding-right: 38%;
+}
+#search{
+  padding: 10px;
+  padding-left: 12.5%;
+  padding-right: 12.5%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
+}
+h2{
+  margin-bottom: 10px;
+}
+.main_tagging{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.main_discovery{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+#mapView {
+  display: block;
 }
 
 /* Grid styles (no changes required) */
@@ -165,13 +209,7 @@ ul{
   width: calc(100% - 1rem);
 }
 
-#mapView {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
-  width: 95%;
-}
+
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
