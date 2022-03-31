@@ -1,6 +1,5 @@
 /*
   File origin: VS1LAB A1b  
-
   CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
   CSS variables used for clarity and themability (e.g. through SSR). 
   Inherited box sizing used for ease of including 3rd party content-box components.
@@ -47,10 +46,67 @@ a {
 /* ### TODO ### Styles for other HTML elements */
 
 /* ... your code here ... */
+header {
+  background-color: #d6d6d6;
+  padding: 15px;
+  display: flex;
+}
+footer {
+  background-color:#d6d6d6;
+  padding: 20px;
+}
+input {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+legend {
+  font-weight: bold;
+  margin-left: 10px;
+}
 
+.tag_formular{
+  margin-left: 10px;
+}
+.discovery_formular{
+  margin-left: 10px;
+}
+li {
+  padding: 5px;
+  margin: bottom 10px;
+  color: blue;
+  background-color:#d6d6d6;
+}
+ul{
+  list-style-type: none;
+  margin: 10px;
+  padding: 10px;
+}
+.discovery__map{
+  margin-top: 10px;
+}
+.main{
+  display: flex;
+}
+.discovery__wrapper{
+  display: flex;
+}
 
-/* ... your code here ... */
+.header__image{
+  height:50px;
+  width: auto;
+  margin-left: 10px;
 
+}
+.header__navigation{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 20px;
+}
+.header__title{
+  margin-top: 10px;
+  margin-left: auto;
+}
 
 /* Grid styles (no changes required) */
 
@@ -109,104 +165,21 @@ a {
   width: calc(100% - 1rem);
 }
 
-
+#mapView {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 95%;
+}
 /* ### TODO ### Styles for Header Component */
-.main{
-  display:flex;
-  flex-direction: row;
-  /*flex-wrap: wrap; */
-  justify-content: space-between;
-  align-items: flex-start;
-}
 
-ul{
-  float:left;
-  list-style-type: none;
-  margin: 10px;
-}
-.discovery__map{
-  float:right;
-  margin: 14px;
-  margin-right:30px;
-}
+/* ... your code here ... */
 
-.main_tagging{
-  order: 1;
-  flex-basis: 25%;
-  float:left;
-}
-.main_discovery{
-  order: 1;
-  flex-basis:73%;
-  float:left;
-}
-input[type="text"]{
-  padding: 5px;
-}
-
-header{
-  background-color:#e3e3e3;
-  color:black;
-  padding:10px;
-}
-footer {
-  background-color: #e3e3e3;
-  color: black;
-  padding: 10px;
-}
-.tag_formular{
-  display:block;
-  margin-top: 3px;
-  margin-bottom:3px;
-}
-#addTag{
-  margin-top:15px;
-  padding:5xp;
-}
-label{
-  line-height: 1.5;
-}
-li{
-  background-color: #e3e3e3;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  padding: 5px;
-}
-
-@media screen and (min-width: 850px) {
-  .main_tagging{
-    order: 0;
-    flex-basis: 100%;
-    float: left;
-  }
-  .main_discovery{
-    order: 1;
-    flex-basis: 100%;
-    float: left;
-  }
-  ul{
-    flex-basis: 100%;
-    order: 3;
-  }
-  .discovery__map{
-    flex-basis: 100%;
-    float: left;
-    margin: 14px;
-    margin-right: 30px;
-    order: 4;
-  }
-  .main{
-    display:flex;
-    flex-direction: left;
-    margin: 14px;
-    margin-right: 30px;
-    order: 4;
-  }
-
-}
 
 /* ### TODO ### Styles for Main Component */
 
+/* ... your code here ... */
 
 
 /* ### TODO ### Styles for Tagging component */
@@ -221,8 +194,9 @@ li{
 
 /* ### TODO ### Styles for Footer Component */
 
-
+/* ... your code here ... */
 
 
 /* ### TODO ### Media Queries */
 
+/* ... your code here ... */
