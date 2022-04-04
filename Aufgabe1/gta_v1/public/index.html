@@ -30,17 +30,17 @@
             <form id="tag-form" action="/tagging" method="post">
                 <fieldset>
                     <legend>Add a new GeoTag</legend>
-                    <label for="latitudeInput">Latitude:</label>
-                <Input type="text" id="latitudeInput" placeholder="e.g. 12.2" readonly="true" value="12.2"></Input>
+                    <label for="latitude">Latitude:</label>
+                <Input type="text" id="latitude" placeholder="e.g. 12.2" readonly="true" value="12.2"></Input>
                 
-                <label for="longitudeInput">Longitude:</label>
-                <Input type="text" id="longitudeInput" placeholder="e.g. 13.2" readonly="true" value="13.2"></Input>
+                <label for="longitude">Longitude:</label>
+                <Input type="text" id="longitude" placeholder="e.g. 13.2" readonly="true" value="13.2"></Input>
                 
-                <label for="nameInput" required maxlength="10">Name:</label>
-                <Input type="text" id="nameInput" placeholder="e.g. Karlsruhe"></Input>
+                <label for="name" required maxlength="10">Name:</label>
+                <Input type="text" id="name" placeholder="e.g. Karlsruhe"></Input>
 
-                <label for="hashtagInput">Hashtag:</label>
-                <Input type="text" id="hashtagInput" placeholder="e.g. #example" pattern="#[a-zA-Z]{1,10}"></Input>
+                <label for="hashtag">Hashtag:</label>
+                <Input type="text" id="hashtag" placeholder="e.g. #example" pattern="#[a-zA-Z]{1,10}"></Input>
                     
 
                 <input type=submit id="tagSubmit" name="submit" value="Add Tag"></input>
@@ -60,9 +60,11 @@
 
                <fieldset>
                    <legend>Search</legend>
-                   <label for="searchInput">Search term or keywords:</label>
-                <Input type="text" id="searchInput" placeholder="e.g. Schlossgarten"></Input>
+                   <label for="searchterm">Search term or keywords:</label>
+                <Input type="text" id="searchterm" placeholder="e.g. Schlossgarten"></Input>
                 <input type=submit id="searchSubmit" name="submit" value="Search"></input>
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="longitude">
                </fieldset>
 
             </form>
