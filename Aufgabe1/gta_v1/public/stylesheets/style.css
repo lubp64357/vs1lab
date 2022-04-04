@@ -44,19 +44,7 @@ a {
 }
 
 /* ### TODO ### Styles for other HTML elements */
-
-/* ... your code here ... */
-header {
-  background-color: #d6d6d6;
-  padding: 15px;
-  display: flex;
-}
-footer {
-  background-color:#d6d6d6;
-  padding: 20px;
-}
 input {
-  
   display: block;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -66,91 +54,14 @@ legend {
   margin-left: 10px;
 }
 
-.tag_formular{
-  margin-left: 10px;
-  margin-right: 20px;
-}
-.discovery_formular{
-  margin-left: 10px;
-}
-li {
-  padding: 10px;
-  border-style: solid;
-  border-color: gray;
-  border-width: 0.5px;
-  color: blue;
-  background-color:#d6d6d6;
-  margin-top: 10px;
-}
-ul{
-  list-style-type: none;
-  margin-top: 20px;
-}
-.discovery__map{
-  margin-top: 10px;
-  margin-left: 10px;
-}
-.main{
-  display: flex;
-}
-.discovery__wrapper{
-  display: flex;
-}
-
-.header__image{
-  height:50px;
-  width: auto;
-  margin-left: 10px;
-
-}
-.header__navigation{
-  margin-top: 10px;
-  margin-left: auto;
-  margin-right: 20px;
-}
-.header__title{
-  margin-top: 10px;
-  margin-left: auto;
-}
-
 label {
   color:gray;
-}
-#addTag{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-style: solid;
-  border-color: gray;
-  border-width: 0.5px;
-  padding: 10px;
-  padding-left: 37%;
-  padding-right: 38%;
-}
-#search{
-  padding: 10px;
-  padding-left: 12.5%;
-  padding-right: 12.5%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-style: solid;
-  border-color: gray;
-  border-width: 0.5px;
 }
 h2{
   margin-bottom: 10px;
 }
-.main_tagging{
-  margin-top: 30px;
-  margin-left: 30px;
-}
-.main_discovery{
-  margin-top: 30px;
-  margin-left: 30px;
-}
 
-#mapView {
-  display: block;
-}
+
 
 /* Grid styles (no changes required) */
 
@@ -212,29 +123,110 @@ h2{
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
+header {
+  background-color: #d6d6d6;
+  padding: 15px;
+  display: flex;
+}
+.header__image{
+  height:50px;
+  width: auto;
+  margin-left: 10px;
+
+}
+.header__title{
+  margin-top: 10px;
+  margin-left: auto;
+}
+.header__navigation{
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: 20px;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
+main{
+  display: flex;
+}
 
 
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
-
+.main_tagging{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.tag_formular{
+  margin-left: 10px;
+  margin-right: 20px;
+}
+#addTag{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
+  padding: 10px;
+  padding-left: 37%;
+  padding-right: 38%;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
-
+.main_discovery{
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.discovery_formular{
+  margin-left: 10px;
+}
+#search{
+  padding: 10px;
+  padding-left: 12%;
+  padding-right: 12.5%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
+footer {
+  background-color:#d6d6d6;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
 
 
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+.discovery__wrapper{
+  display: flex;
+}
+.discovery__results{
+  list-style-type: none;
+  margin-top: 20px;
+}
+li {
+  padding: 10px;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0.5px;
+  color: blue;
+  background-color:#d6d6d6;
+  margin-top: 10px;
+}
+
+.discovery__map{
+  margin-top: 10px;
+  margin-left: 10px;
+}
+#mapView {
+  display: block;
+}
