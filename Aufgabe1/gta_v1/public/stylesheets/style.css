@@ -146,7 +146,6 @@ header {
 
 main{
   display: flex;
-  justify-content:flex-start;
 }
 /* ### TODO ### Styles for Tagging component */
 
@@ -218,21 +217,21 @@ li {
 footer {
   background-color:#d6d6d6;
   padding: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-
+  margin-top: auto;
 }
 
 
 /* ### TODO ### Media Queries */
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 768px) {
   /* For mobile phones: */
   [class*="col-"] {
     width: 100%;
   }
   .row {
+    width: 100%;
+  }
+  body{
     width: 100%;
   }
 }
