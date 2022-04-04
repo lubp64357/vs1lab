@@ -188,21 +188,6 @@ main{
   border-color: gray;
   border-width: 0.5px;
 }
-
-/* ### TODO ### Styles for Footer Component */
-
-footer {
-  background-color:#d6d6d6;
-  padding: 20px;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-
-}
-
-
-/* ### TODO ### Media Queries */
-
 .discovery__wrapper{
   display: flex;
 }
@@ -226,4 +211,28 @@ li {
 }
 #mapView {
   display: block;
+}
+
+/* ### TODO ### Styles for Footer Component */
+
+footer {
+  background-color:#d6d6d6;
+  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+}
+
+
+/* ### TODO ### Media Queries */
+
+@media only screen and (max-width: 850px) {
+  /* For mobile phones: */
+  [class*="col-"] {
+    width: 100%;
+  }
+  .row {
+    width: 100%;
+  }
 }
