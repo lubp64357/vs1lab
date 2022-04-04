@@ -46,6 +46,7 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
+
 /* ... your code here ... */
 
 
@@ -110,22 +111,66 @@ a {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
+.header {
+  background-color: #d6d6d6;
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.header__image {
+  max-width: 5%;
+  height: auto;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
-
+.main {
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  
+}
 
 /* ### TODO ### Styles for Tagging component */
 
 /* ... your code here ... */
+.main__tagging {
+  display: flex;
+  flex: 3;
+  flex-direction: column;
+}
+
+.taggingForm{
+  display: flex;
+  flex-direction: column;
+}
 
 
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+.main__discovery {
+  display: flex;
+  flex: 8;
+  flex-direction: column;
+}
 
+.discoveryForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.discovery__wrapper {
+  display: flex;
+}
+
+.discovery__wrapper li {
+  border-style: groove;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
