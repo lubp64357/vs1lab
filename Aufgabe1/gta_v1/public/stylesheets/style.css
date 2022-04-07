@@ -44,10 +44,18 @@ a {
 }
 
 /* ### TODO ### Styles for other HTML elements */
-input {
-  display: block;
-  margin-top: 5px;
+
+.tag_formular input{
+  
+  width : 100%;
   margin-bottom: 5px;
+  padding: 0.5em 0.5em 0.5em;
+}
+.discovery_formular input {
+  margin-top: 0.5em;
+  width:25%;
+  margin-bottom: 5px;
+  padding: 0.5em 0.5em 0.5em;
 }
 legend {
   font-weight: bold;
@@ -56,11 +64,12 @@ legend {
 
 label {
   color:gray;
+  font-size: 1.0em;
 }
 h2{
   margin-bottom: 10px;
+  padding-bottom: 15px;
 }
-
 
 
 /* Grid styles (no changes required) */
@@ -125,19 +134,24 @@ h2{
 
 header {
   background-color: #d6d6d6;
-  padding: 15px;
+  padding-top:15px;
   display: flex;
   justify-content:space-between;
-}
+  top:0;
+  width:100%;
+  height: 100px;
+  flex-flow: row wrap;
+  }
 .header__image{
   height: 50px;
   width: auto;
+  margin-left:20px;
 }
 .header__title{
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .header__navigation{
-  margin-top: 10px;
+  margin-top: 15px;
   margin-right: 20px;
 }
 
@@ -145,17 +159,20 @@ header {
 /* ### TODO ### Styles for Main Component */
 
 main{
-  display: flex;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 30% 70%;
 }
 /* ### TODO ### Styles for Tagging component */
 
 .main_tagging{
   margin-top: 30px;
-  margin-left: 30px;
+  margin-left: 20px;
 }
 .tag_formular{
+  display: grid;
   margin-left: 10px;
-  margin-right: 20px;
+  margin-right: 10px;
 }
 #addTag{
   margin-top: 10px;
@@ -172,23 +189,21 @@ main{
 
 .main_discovery{
   margin-top: 30px;
-  margin-left: 30px;
+  margin-left: 10px;
 }
 .discovery_formular{
+  display: grid;
   margin-left: 10px;
 }
 #search{
-  padding: 10px;
-  padding-left: 12%;
-  padding-right: 12.5%;
-  margin-top: 10px;
-  margin-bottom: 10px;
   border-style: solid;
   border-color: gray;
   border-width: 0.5px;
+  margin-bottom: 10px;
 }
 .discovery__wrapper{
-  display: flex;
+  display: grid;
+  grid-template-columns: 30% 70%;
 }
 .discovery__results{
   list-style-type: none;
@@ -210,28 +225,29 @@ li {
 }
 #mapView {
   display: block;
+  margin-top: 15px;
 }
 
 /* ### TODO ### Styles for Footer Component */
 
 footer {
   background-color:#d6d6d6;
-  padding: 20px;
-  margin-top: auto;
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  }
+  
+#footer_text{
+  margin:auto;
+  margin-left: 20px;
 }
-
-
 /* ### TODO ### Media Queries */
 
 @media only screen and (max-width: 768px) {
-  /* For mobile phones: */
-  [class*="col-"] {
-    width: 100%;
+  main{
+    display:block;
   }
-  .row {
-    width: 100%;
-  }
-  body{
-    width: 100%;
+  .discovery__wrapper{
+    display: block;
   }
 }

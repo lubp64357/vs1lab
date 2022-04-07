@@ -21,7 +21,7 @@
         </nav>
     </header>
 
-    <main>
+    <main class = "main">
         <section class="main_tagging">
             <h2>Tagging</h2>
 
@@ -71,7 +71,14 @@
                 <fieldset name="Discovery-Formular">
                     <legend>Search term or keywords</legend>
                     <div class = "discovery_formular">
+                    <label id = "discovery_latitude" hidden>Latitude:</label>
+                    <input id = "discovery_latitude_input" type="hidden">
+
+                    <label id = "discovery_longtitude" hidden>Longtitude:</label>
+                    <input id = "discovery_longtitude_input" type="hidden">
+
                     <input id="searchTerm" name="search termn" type="text" placeholder="e.g. Berlin">
+                    
                     <input id= "search" type="submit" value="Search">
                     </div>
                 </fieldset>
@@ -81,10 +88,10 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
-                    <ul class="discovery__results">
-                        <li>Castle (49.01379, 8.404435) #sight</li>
-                        <li>IWI (49.01379, 8.390071) #edu</li>
-                    </ul>
+                <ul class="discovery__results">
+                    <li>Castle (49.01379, 8.404435) #sight</li>
+                    <li>IWI (49.01379, 8.390071) #edu</li>
+                </ul>
 
                 <div class="discovery__map">
                     <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" />
@@ -96,7 +103,7 @@
     </main>
 
     <footer class="footer">
-        <span>(c) 2021/22 HKA_IWI_VSYS</span>
+        <span id = "footer_text">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
 </body>
 
