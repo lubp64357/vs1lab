@@ -250,4 +250,13 @@ footer {
   .discovery__wrapper{
     display: block;
   }
+  .main_tagging{
+    width: 95%;
+  }
+  .discovery__search{
+    width: 98%;
+  }
+  li{
+    width: 98%;
+  }
 }
