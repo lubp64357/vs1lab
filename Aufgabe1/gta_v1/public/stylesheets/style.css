@@ -110,28 +110,88 @@ a {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
+header {
+  background-color: #EFEFEF;
+}
 
+.header {
+  display: flex;
+}
+
+.header .header__title {
+  flex-grow: 1;
+  margin: auto;
+  text-align: center;
+}
+
+.header .header__image {
+  width: 3%;
+  height: 3%;
+  margin: 1%;
+}
+
+.header .header__navigation { 
+  margin: 2%;
+}
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
 
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.main__tagging fieldset {
+  display: flex;
+ flex-direction: column;
+ border:  2px solid lightslategray;
+ height:100%;
+ padding: 16px;
+ align-content: space-between;
+
+}
 
 /* ### TODO ### Styles for Tagging component */
 
 /* ... your code here ... */
-
+#tag-form {
+  display: block;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
-
+.main .main__discovery discovery{
+  margin: auto;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
 /* ... your code here ... */
-
+footer {
+  background-color: #EFEFEF;
+  
+}
 
 /* ### TODO ### Media Queries */
 
 /* ... your code here ... */
+/*
+<link rel="stylesheet"
+media="screen and (min-width: 850px),
+(min-width: 3000px)"
+href="large-device.css">
+
+<style>
+}
+@media screen and (max-width: 300px) {
+#main {
+display: block;
+}
+}
+</style>
+
+*/

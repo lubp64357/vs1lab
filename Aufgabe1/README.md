@@ -137,8 +137,8 @@ Bezüglich **Responsive Design** soll die Breite der Spalten sich relativ zur ve
 
 Setzen sie weitere **gestalterische Ziele** um:
 
-- Farbig abgesetzte Header- und Footer-Bereiche
-- Vertikale Anordnung der Eingaben im Tagging Formular
+- Farbig abgesetzte Header- und Footer-Bereiche            Erledigt
+- Vertikale Anordnung der Eingaben im Tagging Formular     
 - Größere Boxen für die Eingaben aller Formulare
 - Discovery Ergebnisliste mit farbigen Boxen
 
