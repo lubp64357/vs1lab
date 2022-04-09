@@ -140,7 +140,6 @@ header {
   top:0;
   width:100%;
   height: 100px;
-  flex-flow: row wrap;
   }
 .header__image{
   height: 50px;
@@ -224,7 +223,7 @@ li {
   margin-left: 10px;
 }
 #mapView {
-  display: block;
+  display: flex;
   margin-top: 15px;
 }
 
