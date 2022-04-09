@@ -34,8 +34,8 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
 
@@ -180,8 +180,7 @@ main{
   border-color: gray;
   border-width: 0.5px;
   padding: 10px;
-  padding-left: 37%;
-  padding-right: 38%;
+  
 }
 
 /* ### TODO ### Styles for Discovery component */
@@ -206,7 +205,6 @@ main{
 }
 .discovery__results{
   list-style-type: none;
-  margin-top: 20px;
 }
 li {
   padding: 10px;
@@ -219,11 +217,11 @@ li {
 }
 
 .discovery__map{
-  margin-top: 10px;
+  display: block;
   margin-left: 10px;
 }
 #mapView {
-  display: flex;
+  display:flex;
   margin-top: 15px;
 }
 
