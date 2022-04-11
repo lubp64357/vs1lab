@@ -71,7 +71,6 @@ h2{
   padding-bottom: 15px;
 }
 
-
 /* Grid styles (no changes required) */
 
 .row {
@@ -217,7 +216,6 @@ li {
 }
 
 .discovery__map{
-  display: block;
   margin-left: 10px;
 }
 #mapView {
