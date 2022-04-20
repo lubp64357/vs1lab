@@ -102,9 +102,36 @@ class MapManager {
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
-// ... your code here ...
+class LocationUpdate {
+    static updateLocation() {
+       let helper2 = new LocationHelper();
+       LocationHelper.findLocation(function(helper) {
+            helper2 = helper;
+            console.log(helper2.latitude);
+            document.getElementById("latitude").value = helper2.latitude;
+            document.getElementById("longitude").value = helper2.longitude;
+        });
+   }
+}
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     alert("Please change the script 'geotagging.js'");
+    /*
+    get unorderd list from html
+    create a new list element and fill this the parameters name, latitude, longitude and hashtag
+    added the new created element in the unordered list
+    */
+    LocationUpdate.updateLocation();
+    document.getElementById("addTag").addEventListener("click", function () {
+        var ul = document.getElementById("discovery__results_unorderedList");
+        var li = document.createElement("li");
+        let name = document.querySelector("#name").value;
+        let hash = document.querySelector("#hashtag").value;
+        let latitude = document.querySelector("#latitude").value;
+        let longitude = document.querySelector("#longitude").value;
+        li.appendChild(document.createTextNode(name + " (" + latitude +", " + longitude + ") " + hash));
+        ul.appendChild(li);
+    });
+       
 });
