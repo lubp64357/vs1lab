@@ -107,7 +107,6 @@ class LocationUpdate {
        let helper2 = new LocationHelper();
        LocationHelper.findLocation(function(helper) {
             helper2 = helper;
-            console.log(helper2.latitude);
             document.getElementById("latitude").value = helper2.latitude;
             document.getElementById("longitude").value = helper2.longitude;
         });
