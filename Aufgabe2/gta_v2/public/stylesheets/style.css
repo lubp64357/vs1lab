@@ -34,9 +34,9 @@ html {
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 
 }
 
@@ -156,6 +156,7 @@ header {
   margin-top: 15px;
   margin-right: 20px;
 }
+
 
 /* ### TODO ### Styles for Main Component */
 
