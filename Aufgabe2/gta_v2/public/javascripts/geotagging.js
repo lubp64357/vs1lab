@@ -114,7 +114,7 @@ function updateLocation(){
          let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
          let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
          document.getElementById("mapView").src=mapQuestUrl;
-         
+         //comment
          
      });
 }
