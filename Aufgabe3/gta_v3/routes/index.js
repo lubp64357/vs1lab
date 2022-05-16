@@ -41,8 +41,11 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 // TODO: extend the following route example if necessary
+const geoTagList = require("../models/geotag-examples");
+const InMemoryGeoTagStore = require('../models/geotag-store');
+
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  res.render('index', { taglist: geoTagList.tagList })
 });
 
 /**
@@ -61,7 +64,25 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/tagging', (req, res) => {
+  let name = req.body.tagging_name;
+  let latitude = req.body.tagging_latitude;
+  let longitude = req.body.tagging_longitude;
+  let hashtag = req.body.tagging_hashtag;
 
+  let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
+  // console.log(geoTagObject.name)
+  // console.log(geoTagObject.latitude)
+  // console.log(geoTagObject.longitude)
+  // console.log(geoTagObject.hashtag)
+   let memory = new GeoTagStore();
+  
+
+  memory.geoTags = geoTagList.tagList;
+  memory.addGeoTag(geoTagObject);
+  // let tagsInMemory = memory.getNearbyGeoTags(geoTagObject);
+  res.render('index', { taglist: memory.geoTags })
+});
 /**
  * Route '/discovery' for HTTP 'POST' requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)
@@ -79,5 +100,15 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/discovery', (req, res) => {
+  let keyword = req.body.discovery_searchterm;
+  let latitude = req.body.discovery_latitude_search;
+  let longitude = req.body.discovery_longitude_search;
+
+  let memory = new GeoTagStore();
+  
+  memory.geoTags = geoTagList.tagList;
+  res.render('index', { taglist: memory.searchNearbyGeoTags(keyword) })
+});
 
 module.exports = router;

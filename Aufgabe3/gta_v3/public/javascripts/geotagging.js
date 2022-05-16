@@ -106,12 +106,12 @@ class MapManager {
 
 function updateLocation(){
     LocationHelper.findLocation(function(helper) {
-         document.getElementById("latitude").value = helper.latitude;
-         document.getElementById("longitude").value = helper.longitude;
-         document.getElementById("discovery_latitude").value = helper.latitude;
-         document.getElementById("discovery_longtitude").value = helper.longitude;
+         document.getElementById("tag_latitude").value = helper.latitude;
+         document.getElementById("tag_longitude").value = helper.longitude;
+         document.getElementById("discovery_latitude_input").value = helper.latitude;
+         document.getElementById("discovery_longtitude_input").value = helper.longitude;
 
-         let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
+         let mapManager=new MapManager("EussyP3bKYyMVPyfB8Y46Ng5VVQfBRyY");
          let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
          document.getElementById("mapView").src=mapQuestUrl;
          //comment
