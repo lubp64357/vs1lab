@@ -46,8 +46,9 @@ class InMemoryGeoTagStore{
     getNearbyGeoTags(location) {
         let nearbyGeoTags = [];
         let distance;
-
-        for (let i = 0; i < this.geoTags.length - 1; i++) {
+        
+        
+        for (let i = 0; i < this.geoTags.length; i++) {
             distance = this.calculateDistance(location, this.geoTags[i]);
             if (distance < 5) {
                 nearbyGeoTags.push(this.geoTags[i]);
@@ -57,7 +58,7 @@ class InMemoryGeoTagStore{
     }
 
     searchNearbyGeoTags(keyword) {
-        let distance;
+        
         let geoTagMatching;
         let nearbyGeoTags = [];
         let geoTagName;
@@ -79,10 +80,10 @@ class InMemoryGeoTagStore{
     }
 
     calculateDistance(from, to) {
-        let fromX = from.latitude();
-        let fromY = from.longitude();
-        let toX = to.latitude();
-        let toY = to.longitude();
+        let fromX = from.latitude;
+        let fromY = from.longitude;
+        let toX = to.latitude;
+        let toY = to.longitude;
         return Math.sqrt(Math.pow(toX - fromX, 2) + Math.pow(toY - fromY, 2));
     }
 }

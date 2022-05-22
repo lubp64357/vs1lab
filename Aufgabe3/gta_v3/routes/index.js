@@ -76,10 +76,12 @@ router.post('/tagging', (req, res) => {
 
   let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
 
-   
+  let nearbyGeoTags = tagStore.getNearbyGeoTags(geoTagObject);
+  nearbyGeoTags.push(geoTagObject);
   tagStore.addGeoTag(geoTagObject);
   // let tagsInMemory = memory.getNearbyGeoTags(geoTagObject);
-  res.render('index', { taglist: tagStore.geoTags })
+  res.render('index', { taglist: tagStore.geoTags})
+  // res.render('index', { taglist: tagStore.geoTags})
 });
 /**
  * Route '/discovery' for HTTP 'POST' requests.
