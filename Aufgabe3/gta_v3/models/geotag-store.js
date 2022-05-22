@@ -1,5 +1,5 @@
 // File origin: VS1LAB A3
-
+const geoTagList = require("../models/geotag-examples");
 /**
  * This script is a template for exercise VS1lab/Aufgabe3
  * Complete all TODOs in the code documentation.
@@ -27,7 +27,8 @@ class InMemoryGeoTagStore{
 
     
     // TODO: ... your code here ...
-    geoTags = [];
+    geoTags = geoTagList.tagList;
+    static get geoTags() { return geoTags}
 
 
     addGeoTag(geotag) {
