@@ -10,18 +10,20 @@
 console.log("The geoTagging script is going to start...");
 
 function updateLocation(){
+    
     LocationHelper.findLocation(function(helper) {
-         document.getElementById("latitude").value = helper.latitude;
-         document.getElementById("longitude").value = helper.longitude;
-         document.getElementById("discovery_latitude").value = helper.latitude;
-         document.getElementById("discovery_longtitude").value = helper.longitude;
-
-         let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
-         let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
-         document.getElementById("mapView").src=mapQuestUrl;
-         
-         
-     });
+        if (document.getElementById("latitude").value == "" || document.getElementById("longitude").value == "") {
+            document.getElementById("latitude").value = helper.latitude;
+            document.getElementById("longitude").value = helper.longitude;
+            document.getElementById("discovery_latitude").value = helper.latitude;
+            document.getElementById("discovery_longtitude").value = helper.longitude;
+        }
+        let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
+        taglist = JSON.parse(document.getElementById("mapView").data-tags);
+        let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18, taglist);
+        document.getElementById("mapView").src=mapQuestUrl;
+    });
+    
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
