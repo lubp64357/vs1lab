@@ -19,8 +19,8 @@ function updateLocation(){
             document.getElementById("discovery_longtitude").value = helper.longitude;
         }
         let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
-        taglist = JSON.parse(document.getElementById("mapView").data-tags);
-        let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18, taglist);
+        let taglist = JSON.parse(document.getElementById("mapView").data-tags);
+        let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, taglist, 18);
         document.getElementById("mapView").src=mapQuestUrl;
     });
     

@@ -23,7 +23,7 @@
      * @param {number} zoom The map zoom, defaults to 10
      * @returns {string} URL of generated map
      */
-    getMapUrl(latitude, longitude, tags = [], zoom = 10, taglist) {
+    getMapUrl(latitude, longitude, tags = [], zoom = 10) {
         if (this.#apiKey === '') {
             console.log("No API key provided.");
             return "images/mapview.jpg";
@@ -32,7 +32,7 @@
         let tagList = `You,${latitude},${longitude}`;
         tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "");
 
-        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}&marker=${taglist}`;
+        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}&marker=${tags}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 
         return mapQuestUrl;
