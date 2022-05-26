@@ -77,7 +77,7 @@
    let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
  
    // let nearbyGeoTags = tagStore.getNearbyGeoTags(geoTagObject);
-   nearbyGeoTags.push(geoTagObject);
+   // nearbyGeoTags.push(geoTagObject);
    tagStore.addGeoTag(geoTagObject);
    // let tagsInMemory = memory.getNearbyGeoTags(geoTagObject);
    res.render('index', { taglist: tagStore.geoTags, mapView: JSON.stringify(tagStore.geoTags)})
