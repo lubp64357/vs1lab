@@ -43,7 +43,7 @@ class InMemoryGeoTagStore{
         }
     }
 
-    getNearbyGeoTags(location) {
+    getNearbyGeoTags(location) { // Funktioniert nicht
         let nearbyGeoTags = [];
         let distance;
         
