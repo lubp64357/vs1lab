@@ -28,6 +28,7 @@ function updateLocation(){
          let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
          document.getElementById("mapView").src=mapQuestUrl;
          //comment
+         //let nearTaglist = JSON.parse(document.getElementById("mapView").getAttribute("data-tags"));
          
      });
 }

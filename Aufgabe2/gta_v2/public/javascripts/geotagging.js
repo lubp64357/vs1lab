@@ -49,8 +49,8 @@ class LocationHelper {
         geoLocationApi.getCurrentPosition((location) => {
             // Create and initialize LocationHelper object.
             let helper = new LocationHelper();
-            helper.#latitude = location.coords.latitude.toFixed(5);
-            helper.#longitude = location.coords.longitude.toFixed(5);
+            helper.latitude = location.coords.latitude.toFixed(5);
+            helper.longitude = location.coords.longitude.toFixed(5);
             // Pass the locationHelper object to the callback.
             callback(helper);
         }, (error) => {
