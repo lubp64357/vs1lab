@@ -32,12 +32,13 @@
                     <legend>Enter new tag</legend>
                     <div class="tag_formular">
                         <label>Latitude:
-                            <input id="latitude" value="" type="number" name="latitude"
+
+                            <input id="latitude" type="number" name="latitude" placeholder="49.01379"
                                 disabled="disabled">
                         </label>
                         <label>
                             Longitude:
-                            <input id="longitude" value="" type="number" name="longtitude"
+                            <input id="longitude" type="number" name="longtitude" placeholder="8.390071"
                                 disabled=" disabled">
                         </label>
                         <label>
@@ -50,7 +51,8 @@
                             <input id="hashtag" type="text" name="hashtag" placeholder="e. g. #ber"
                                 pattern="^#[a-zA-Z]{1,10}">
                         </label>
-                        <input id="addTag" type="button" value="Add Tag">
+                        <input id= "addTag" type="submit" value="Add Tag">
+
                     </div>
                 </fieldset>
                 <!-- ... your code here ... -->
@@ -87,7 +89,7 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper row">
-                <ul class="discovery__results col-3" id="discovery__results_unorderedList">
+                <ul class="discovery__results col-3">
                     <li>Castle (49.01379, 8.404435) #sight</li>
                     <li>IWI (49.01379, 8.390071) #edu</li>
                 </ul>
@@ -104,7 +106,7 @@
     <footer class="footer">
         <span id = "footer_text">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
-    <!-- Load JavaScripts
+        <!-- Load JavaScripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./javascripts/geotagging.js"></script>

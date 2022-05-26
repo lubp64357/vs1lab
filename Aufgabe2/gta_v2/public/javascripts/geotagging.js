@@ -49,8 +49,8 @@ class LocationHelper {
         geoLocationApi.getCurrentPosition((location) => {
             // Create and initialize LocationHelper object.
             let helper = new LocationHelper();
-            helper.#latitude = location.coords.latitude.toFixed(5);
-            helper.#longitude = location.coords.longitude.toFixed(5);
+            helper.latitude = location.coords.latitude.toFixed(5);
+            helper.longitude = location.coords.longitude.toFixed(5);
             // Pass the locationHelper object to the callback.
             callback(helper);
         }, (error) => {
@@ -102,26 +102,33 @@ class MapManager {
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
-class LocationUpdate {
-    static updateLocation() {
-       let helper2 = new LocationHelper();
-       LocationHelper.findLocation(function(helper) {
-            helper2 = helper;
-            document.getElementById("latitude").value = helper2.latitude;
-            document.getElementById("longitude").value = helper2.longitude;
-        });
-   }
+
+
+function updateLocation(){
+    LocationHelper.findLocation(function(helper) {
+         document.getElementById("latitude").value = helper.latitude;
+         document.getElementById("longitude").value = helper.longitude;
+         document.getElementById("discovery_latitude").value = helper.latitude;
+         document.getElementById("discovery_longtitude").value = helper.longitude;
+
+         let mapManager=new MapManager("XCbGiqL4T1sCHHoOW44CjYAeZg15xNPo");
+         let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
+         document.getElementById("mapView").src=mapQuestUrl;
+         //comment
+         
+     });
 }
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    alert("Please change the script 'geotagging.js'");
+    //alert("Please change the script 'geotagging.js'");
     /*
     get unorderd list from html
     create a new list element and fill this the parameters name, latitude, longitude and hashtag
     added the new created element in the unordered list
     */
-    LocationUpdate.updateLocation();
+    updateLocation();
+    /*
     document.getElementById("addTag").addEventListener("click", function () {
         var ul = document.getElementById("discovery__results_unorderedList");
         var li = document.createElement("li");
@@ -131,6 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
         let longitude = document.querySelector("#longitude").value;
         li.appendChild(document.createTextNode(name + " (" + latitude +", " + longitude + ") " + hash));
         ul.appendChild(li);
-    });
+    });*/
        
 });
