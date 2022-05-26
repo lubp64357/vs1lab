@@ -25,6 +25,7 @@ const geoTagList = require("../models/geotag-examples");
  */
 class InMemoryGeoTagStore{
 
+    
     // TODO: ... your code here ...
     geoTags = geoTagList.tagList;
     static get geoTags() { return geoTags}

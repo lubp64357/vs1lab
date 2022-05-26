@@ -1,6 +1,5 @@
 /*
   File origin: VS1LAB A1b  
-
   CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
   CSS variables used for clarity and themability (e.g. through SSR). 
   Inherited box sizing used for ease of including 3rd party content-box components.
@@ -38,6 +37,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
 }
 
 a {
@@ -46,8 +46,34 @@ a {
 
 /* ### TODO ### Styles for other HTML elements */
 
-/* ... your code here ... */
+.tag_formular input{
+  
+  width : 100%;
+  margin-bottom: 5px;
+  padding: 0.5em 0.5em 0.5em;
+}
+.discovery_formular input {
+  margin-top: 0.5em;
+  width:25%;
+  margin-bottom: 5px;
+  padding: 0.5em 0.5em 0.5em;
+}
+legend {
+  font-weight: bold;
+  margin-left: 10px;
+}
 
+label {
+  color:var(--gray-color);
+  font-size: 1.0em;
+}
+h2{
+  margin-bottom: 10px;
+  padding-bottom: 15px;
+}
+input{
+  width: 90%;
+}
 
 /* Grid styles (no changes required) */
 
@@ -109,29 +135,128 @@ a {
 
 /* ### TODO ### Styles for Header Component */
 
-/* ... your code here ... */
-
+header {
+  background-color: var(--background-color);
+  padding-top:15px;
+  display: flex;
+  justify-content:space-between;
+  top:0;
+  width:100%;
+  height: 100px;
+  }
+.header__image{
+  height: 50px;
+  width: auto;
+  margin-left:20px;
+}
+.header__title{
+  margin-top: 15px;
+}
+.header__navigation{
+  margin-top: 15px;
+  margin-right: 20px;
+}
 
 /* ### TODO ### Styles for Main Component */
 
-/* ... your code here ... */
-
-
 /* ### TODO ### Styles for Tagging component */
 
-/* ... your code here ... */
+.main_tagging{
+  margin-top: 30px;
+  margin-left: 20px;
+}
 
+.tag_formular{
+  padding: 5%;
+}
+button{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 0.5px;
+  padding: 10px;
+}
+
+#addTag{
+  margin-top: 20px;
+}
 
 /* ### TODO ### Styles for Discovery component */
 
-/* ... your code here ... */
+.main_discovery{
+  margin-top: 30px;
+  margin-left: 10px;
+}
+.discovery__search{
+  margin-right: 5%;
+  
+}
+.discovery_formular{
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+}
 
+.discovery__results{
+  list-style-type: none;
+}
+
+.discovery__wrapper{
+  margin-top: 20px;
+}
+
+li {
+  padding: 10px;
+  border-style: solid;
+  border-color: var(--border-color);
+  border-width: 0.5px;
+  color: var(--link-color);
+  background-color:var(--background-color);
+  margin-bottom: 10px;
+}
+
+.discovery__map{
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+ 
+}
 
 /* ### TODO ### Styles for Footer Component */
 
-/* ... your code here ... */
-
-
+footer {
+  background-color: var(--background-color);
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  }
+  
+#footer_text{
+  margin:auto;
+  margin-left: 20px;
+}
 /* ### TODO ### Media Queries */
 
-/* ... your code here ... */
+@media only screen and (max-width: 768px) {
+  .row{
+    flex-direction: column;
+  }
+  .discovery__wrapper{ /*also has row class so it overwrites the change of row to stay as a row*/
+    flex-direction: row;
+  }
+  .discovery_formular{ /* this just handles button and textinput in discovery formula*/
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .main_tagging{
+    width: 95%;
+  }
+
+  .main_discovery{
+    width: 100%;
+  }
+  
+}
