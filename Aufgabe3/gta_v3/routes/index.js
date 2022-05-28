@@ -48,8 +48,6 @@ tagStore.tagExamples();
 
 
 router.get('/', (req, res) => {
-  console.log(tagStore.geoTags)
-  console.log(JSON.stringify(tagStore.geoTags))
   res.render('index', { taglist: tagStore.geoTags, tagging_latitude: req.body.tagging_latitude, tagging_longitude: req.body.tagging_longitude, mapView: JSON.stringify(tagStore.geoTags) });
 });
 
@@ -106,6 +104,19 @@ router.post('/discovery', (req, res) => {
  
   res.render('index', { taglist: nearbyGeoTags, tagging_latitude: req.body.discovery_latitude, tagging_longitude: req.body.discovery_longitude, mapView: JSON.stringify(nearbyGeoTags) });
 });
+
+/*
+49.018984
+8.375644
+S-Bahn
+#bahn
+
+49.017248
+8.385470
+Random
+#loc
+*/
+
 
 
 module.exports = router;
