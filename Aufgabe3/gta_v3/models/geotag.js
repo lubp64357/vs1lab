@@ -9,34 +9,62 @@
  * A class representing geotags.
  * GeoTag objects should contain at least all fields of the tagging form.
  */
-class GeoTag {
-    name = '';
-    longitude = '';
-    latitude = '';
-    hashtag = '';
+ class GeoTag {
+    #name = "";
+    #latitude = 0;
+    #longitude = 0;
+    #hashtag = "";
 
-    constructor(name, longitude, latitude, hashtag){
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.hashtag = hashtag;
+    constructor(name, latitude, longitude, hashtag) {
+        this.#name = name;
+        this.#latitude = latitude;
+        this.#longitude = longitude;
+        this.#hashtag = hashtag;
+    }
+    
+    /*In JavaScript, the JSON. stringify() function looks for functions named toJSON 
+    in the object being serialized. If an object has a toJSON function, JSON. stringify() calls toJSON() 
+    and serializes the return value from toJSON() instead.*/
+    toJSON() {
+        return {
+            name: this.#name,
+            latitude: this.#latitude,
+            longitude: this.#longitude,
+            // hashtag: this.#hashtag
+        }
     }
 
-    get name(){return this.name;}
-    set name(val){this.name = val;}
+    get name() {
+        return this.#name;
+    }
 
-    get longitude(){return this.longitude;}
-    set longitude(val){this.longitude = val;}
+    set name(name) {
+        this.#name = name;
+    }
 
-    get latitude(){return this.latitude;}
-    set latitude(val){this.latitude = val;}
+    get latitude() {
+        return this.#latitude;
+    }
 
-    get hashtag(){return this.hashtag;}
-    set hashtag(val){this.hashtag = val;}
+    set latitude(latitude) {
+        this.#latitude = latitude;
+    }
 
+    get longitude() {
+        return this.#longitude;
+    }
 
-    // TODO: ... your code here ...
-    
+    set longitude(longitude) {
+        this.#longitude = longitude;
+    }
+
+    get hashtag() {
+        return this.#hashtag;
+    }
+
+    set hashtag(hashtag) {
+        this.#hashtag = hashtag;
+    }
 }
 
 module.exports = GeoTag;

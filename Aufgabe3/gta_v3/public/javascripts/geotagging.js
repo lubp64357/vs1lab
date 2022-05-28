@@ -16,24 +16,27 @@ console.log("The geoTagging script is going to start...");
  * It is called once the page has been fully loaded.
  */
 
+    
 function updateLocation(){
+    
     LocationHelper.findLocation(function(helper) {
-         document.getElementById("tag_latitude").value = helper.latitude;
-         document.getElementById("tag_longitude").value = helper.longitude;
-         document.getElementById("discovery_latitude_input").value = helper.latitude;
-         document.getElementById("discovery_longtitude_input").value = helper.longitude;
+        if (document.getElementById("tag_latitude").value == "" || document.getElementById("tag_longitude").value == "") {
+            document.getElementById("tag_latitude").value = helper.latitude;
+            document.getElementById("tag_longitude").value = helper.longitude;
+            document.getElementById("discovery_latitude_input").value = helper.latitude;
+            document.getElementById("discovery_longtitude_input").value = helper.longitude;}
 
-
-         let mapManager=new MapManager("EussyP3bKYyMVPyfB8Y46Ng5VVQfBRyY");
-         let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, [], 18);
-         document.getElementById("mapView").src=mapQuestUrl;
-         //comment
-         //let nearTaglist = JSON.parse(document.getElementById("mapView").getAttribute("data-tags"));
-         
-     });
+            let mapManager=new MapManager("EussyP3bKYyMVPyfB8Y46Ng5VVQfBRyY");
+            let tagList = JSON.parse(document.getElementById("mapView").getAttribute("data-tags"));
+            console.log(tagList);
+            let mapQuestUrl=mapManager.getMapUrl(helper.latitude, helper.longitude, tagList);
+            document.getElementById("mapView").src=mapQuestUrl;
+    });
+    
 }
 
-// Wait for the page to fully load its DOM content, then call updateLocation
+
+// // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     //alert("Please change the script 'geotagging.js'");
     /*
@@ -43,4 +46,4 @@ document.addEventListener("DOMContentLoaded", () => {
     */
     updateLocation();
        
-});
+})

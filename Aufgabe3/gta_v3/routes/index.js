@@ -41,15 +41,16 @@ const GeoTagStore = require('../models/geotag-store');
  */
 
 // TODO: extend the following route example if necessary
-const geoTagList = require("../models/geotag-examples");
 
 // define the store here
 var tagStore = new GeoTagStore();
-tagStore.geoTags =  geoTagList.tagList;
+tagStore.tagExamples();
 
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: tagStore.geoTags })
+  console.log(tagStore.geoTags)
+  console.log(JSON.stringify(tagStore.geoTags))
+  res.render('index', { taglist: tagStore.geoTags, tagging_latitude: req.body.tagging_latitude, tagging_longitude: req.body.tagging_longitude, mapView: JSON.stringify(tagStore.geoTags) });
 });
 
 /**
@@ -75,13 +76,11 @@ router.post('/tagging', (req, res) => {
   let hashtag = req.body.tagging_hashtag;
 
   let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
-
-  // let nearbyGeoTags = tagStore.getNearbyGeoTags(geoTagObject);
+  
+  let nearbyGeoTags = tagStore.getNearbyGeoTags(geoTagObject);
   nearbyGeoTags.push(geoTagObject);
   tagStore.addGeoTag(geoTagObject);
-  // let tagsInMemory = memory.getNearbyGeoTags(geoTagObject);
-  res.render('index', { taglist: tagStore.geoTags, mapView: JSON.stringify(tagStore.geoTags)})
-  // res.render('index', { taglist: nearbyGeoTags})
+  res.render('index', { taglist: nearbyGeoTags, tagging_latitude: latitude, tagging_longitude: longitude, mapView:JSON.stringify(nearbyGeoTags)})
 });
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -102,8 +101,10 @@ router.post('/tagging', (req, res) => {
 // TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
   let keyword = req.body.discovery_searchterm;
+  let nearbyGeoTags = tagStore.searchNearbyGeoTags(keyword);
+
  
-  res.render('index', { taglist: tagStore.searchNearbyGeoTags(keyword) });
+  res.render('index', { taglist: nearbyGeoTags, tagging_latitude: req.body.discovery_latitude, tagging_longitude: req.body.discovery_longitude, mapView: JSON.stringify(nearbyGeoTags) });
 });
 
 
