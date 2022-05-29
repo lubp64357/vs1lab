@@ -11,6 +11,8 @@
  * TODO: populate your InMemoryGeoTagStore with these tags
  * 
  */
+ const GeoTagStore = require('../models/geotag-store');
+ const GeoTag = require('../models/geotag');
 class GeoTagExamples {
     /**
      * Provides some geoTag data
@@ -30,6 +32,14 @@ class GeoTagExamples {
             ['Building K', 49.013190, 8.392090, '#campus'],
         ];
     }
+
+    static loadExampleTaglist(){
+        this.tagList.forEach(geoTagData => {
+
+            GeoTagStore.addGeoTag(new GeoTag(geoTagData[1], geoTagData[2], geoTagData[0], geoTagData[3]));
+        });
+    }
+
 }
 
 module.exports = GeoTagExamples;

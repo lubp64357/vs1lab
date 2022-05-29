@@ -9,9 +9,17 @@
  * A class representing geotags.
  * GeoTag objects should contain at least all fields of the tagging form.
  */
-class GeoTag {
 
-    // TODO: ... your code here ...
+class GeoTag {
+    name="";
+    hashtag="";
+    location={latitude: 0, longitude:0};
+   constructor(latitude, longitude, name, hashtag) {
+    // invokes the setter
+    this.name = name;
+    this.location={latitude:latitude, longitude: longitude};
+    this.hashtag=hashtag;
+  }
     
 }
 
