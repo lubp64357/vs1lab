@@ -48,7 +48,7 @@ tagStore.tagExamples();
 
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: tagStore.geoTags, tagging_latitude: req.body.tagging_latitude, tagging_longitude: req.body.tagging_longitude, mapView: JSON.stringify(tagStore.geoTags) });
+  res.render('index', { taglist: tagStore.geoTags, tagging_latitude:"", tagging_longitude: "", mapView: "" });
 });
 
 /**
