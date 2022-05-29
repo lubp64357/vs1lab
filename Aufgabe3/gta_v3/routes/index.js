@@ -30,7 +30,7 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
-
+const radius=0.1;
 /**
  * Route '/' for HTTP 'GET' requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -48,7 +48,7 @@ tagStore.tagExamples();
 
 
 router.get('/', (req, res) => {
-  res.render('index', { taglist: tagStore.geoTags, tagging_latitude: req.body.tagging_latitude, tagging_longitude: req.body.tagging_longitude, mapView: JSON.stringify(tagStore.geoTags) });
+  res.render('index', { taglist: [], latitude: req.body.latitude, longitude: req.body.longitude, stringTaglist: "[]" });
 });
 
 /**
@@ -68,17 +68,17 @@ router.get('/', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/tagging', (req, res) => {
-  let name = req.body.tagging_name;
-  let latitude = req.body.tagging_latitude;
-  let longitude = req.body.tagging_longitude;
-  let hashtag = req.body.tagging_hashtag;
+  let name = req.body.name;
+  let latitude = req.body.latitude;
+  let longitude = req.body.longitude;
+  let hashtag = req.body.hashtag;
 
   let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
   
-  let nearbyGeoTags = tagStore.getNearbyGeoTags(geoTagObject);
+  let nearbyGeoTags = tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, radius);
   nearbyGeoTags.push(geoTagObject);
   tagStore.addGeoTag(geoTagObject);
-  res.render('index', { taglist: nearbyGeoTags, tagging_latitude: latitude, tagging_longitude: longitude, mapView:JSON.stringify(nearbyGeoTags)})
+  res.render('index', { taglist: nearbyGeoTags, latitude: latitude, longitude: longitude, stringTaglist:JSON.stringify(nearbyGeoTags)})
 });
 /**
  * Route '/discovery' for HTTP 'POST' requests.
@@ -98,11 +98,13 @@ router.post('/tagging', (req, res) => {
 
 // TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
-  let keyword = req.body.discovery_searchterm;
-  let nearbyGeoTags = tagStore.searchNearbyGeoTags(keyword);
+  let keyword = req.body.keyword;
+  let latitude = req.body.latitude;
+  let longitude = req.body.longitude;
+  let nearbyGeoTags = tagStore.searchNearbyGeoTags(keyword,{latitude: latitude, longitude: longitude}, radius);
 
  
-  res.render('index', { taglist: nearbyGeoTags, tagging_latitude: req.body.discovery_latitude, tagging_longitude: req.body.discovery_longitude, mapView: JSON.stringify(nearbyGeoTags) });
+  res.render('index', { taglist: nearbyGeoTags, latitude: req.body.discovery_latitude, longitude: req.body.discovery_longitude, stringTaglist: JSON.stringify(nearbyGeoTags) });
 });
 
 /*
