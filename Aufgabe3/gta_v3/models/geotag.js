@@ -29,8 +29,7 @@
         return {
             name: this.#name,
             latitude: this.#latitude,
-            longitude: this.#longitude,
-            // hashtag: this.#hashtag
+            longitude: this.#longitude
         }
     }
 
@@ -38,33 +37,21 @@
         return this.#name;
     }
 
-    set name(name) {
-        this.#name = name;
-    }
 
     get latitude() {
         return this.#latitude;
     }
 
-    set latitude(latitude) {
-        this.#latitude = latitude;
-    }
 
     get longitude() {
         return this.#longitude;
     }
 
-    set longitude(longitude) {
-        this.#longitude = longitude;
-    }
 
     get hashtag() {
         return this.#hashtag;
     }
 
-    set hashtag(hashtag) {
-        this.#hashtag = hashtag;
-    }
 }
 
 module.exports = GeoTag;
