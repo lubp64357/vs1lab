@@ -41,12 +41,14 @@
      }
  
      removeGeoTag(name) {
-         for (let i = 0; i < this.#geoTags.length - 1; i++) {
-             if (this.#geoTags[i].name === name) {
-                 this.#geoTags.splice(i, 1);
-             }
-         }
-     }
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if (this.#geoTags[i].name == name) {
+                let removedGeoTag = this.#geoTags[i];
+                this.#geoTags.splice(i, 1);
+                return removedGeoTag;
+            }
+        }
+    }
  
      getNearbyGeoTags(location, radius) {
          let nearbyGeoTags = [];
@@ -74,6 +76,23 @@
              }
         });
     }
+
+    searchGeoTag(id){
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if(this.#geoTags[i].name === id) {
+                return this.#geoTags[i];
+            }
+        }
+    }
+
+    changeGeoTag(geoTag, id){
+        let foundGeoTag = this.searchGeoTag(id);
+        if(foundGeoTag !== undefined) {
+            this.removeGeoTag(foundGeoTag.name)
+            this.#geoTags.unshift(geoTag);
+        }
+    }
+
 
     calculateDistance(from, to) {
         let fromX = from.latitude;
