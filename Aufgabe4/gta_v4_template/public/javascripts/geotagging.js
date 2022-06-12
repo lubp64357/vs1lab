@@ -14,12 +14,12 @@ console.log("The geoTagging script is going to start...");
  * TODO: 'updateLocation'
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
- */
+ */ 
 
-    
-function updateLocation(){
+async function updateLocation(){
     
     LocationHelper.findLocation(function(helper) {
+
         if (document.getElementById("tag_latitude").value == "" || document.getElementById("tag_longitude").value == "") {
             document.getElementById("tag_latitude").value = helper.latitude;
             document.getElementById("tag_longitude").value = helper.longitude;
