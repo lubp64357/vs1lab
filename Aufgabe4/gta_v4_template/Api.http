@@ -16,8 +16,20 @@ Content-Type: application/json
 ###
 
 //GET one GeoTag
-GET http://localhost:3000/api/geotags/test
+GET http://localhost:3000/api/geotags/Castle
 Accept: application/json
+###
+
+//GET all GeoTags filtered with searchterm
+GET http://localhost:3000/api/geotags?searchterm=Building
+###
+
+//GET all GeoTags filtered with location. All GeoTags inside the radius of this location
+GET http://localhost:3000/api/geotags?latitude=49.15528&longitude=8.62126
+###
+
+//GET all GeoTags filtered with searchterm AND location
+GET http://localhost:3000/api/geotags?searchterm=Building&latitude=49.15528&longitude=8.62126
 ###
 
 //PUT change one GeoTag with name test to New Test. test is deleted and New Test is inserted at the beginning
@@ -25,7 +37,7 @@ PUT http://localhost:3000/api/geotags/test
 Content-Type: application/json
 
 {
-  "name":"New Test",
+  "name":"NewTest",
   "latitude":"20",
   "longitude":"52",
   "hashtag":"#test"
@@ -33,5 +45,5 @@ Content-Type: application/json
 ###
 
 //DELETE one GeoTag
-DELETE http://localhost:3000/api/geotags/Castle
+DELETE http://localhost:3000/api/geotags/NewTest
 ###

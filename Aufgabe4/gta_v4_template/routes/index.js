@@ -30,7 +30,7 @@
   */
  // eslint-disable-next-line no-unused-vars
  const GeoTagStore = require('../models/geotag-store');
- const radius = 1000;
+ const radius = 1;
  /**
   * Route '/' for HTTP 'GET' requests.
   * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -137,9 +137,42 @@
  
  // TODO: ... your code here ...
  router.get('/api/geotags', (req, res) => {
-   let nearbyGeoTags = tagStore.geoTags
+  let discoveryQuery = req.query.searchterm;
+  let latitudeQuery = req.query.latitude;
+  let longitudeQuery = req.query.longitude;
+  let filterArray = [];
+  let nearbyGeoTags = tagStore.geoTags;
+  // if both availlable then filtered
+  if (discoveryQuery !== undefined && latitudeQuery !== undefined && longitudeQuery !== undefined) {
+      nearbyGeoTags = [];
+      filterArray = tagStore.searchNearbyGeoTags(discoveryQuery, {latitude:latitudeQuery, longitude: longitudeQuery}, radius);
+      for(let i = 0; i < filterArray.length; i++) {
+          distance = tagStore.calculateDistance(filterArray[i], {latitude:latitudeQuery, longitude: longitudeQuery});
+          if (distance < radius) {
+              nearbyGeoTags.push(filterArray[i]);
+          }
+      }
+      console.log(nearbyGeoTags)
+      console.log("Punkt1")
+  } else if (latitudeQuery !== undefined && longitudeQuery !== undefined) {
+    nearbyGeoTags = tagStore.getNearbyGeoTags({latitude:latitudeQuery, longitude: longitudeQuery}, radius);
+    console.log(nearbyGeoTags)
+    console.log("Punkt2")
+}
+  // if searchterm, then filtered
+  else if (discoveryQuery !== undefined) {
+      nearbyGeoTags = tagStore.searchNearbyGeoTags1(discoveryQuery);
 
-   res.json(JSON.stringify(nearbyGeoTags))
+      console.log(nearbyGeoTags)
+      console.log("Punkt4")
+  }
+  // if lat + long available, then filtered
+   else {
+
+  console.log(nearbyGeoTags)
+  console.log("Punkt3")}
+
+  res.json(JSON.stringify(nearbyGeoTags));
  })
  
  /**
@@ -164,7 +197,6 @@
     let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
     tagStore.addGeoTag(geoTagObject);
     res.append('URL', "api/geotags/" + name);
-
     res.status(201).json(JSON.stringify(tagStore.geoTags));
 })
  
@@ -204,9 +236,10 @@ router.get('/api/geotags/:id', (req, res) => {
  // TODO: ... your code here ...
  router.put('/api/geotags/:id', (req, res) => {
    let geoTagID = req.params.id
+   
    let geoTag = req.body
    tagStore.changeGeoTag(geoTag, geoTagID)
-
+  
    res.status(202).json(JSON.stringify(geoTag))
  })
  
@@ -225,6 +258,8 @@ router.get('/api/geotags/:id', (req, res) => {
  router.delete('api/geotags/:id', (req, res) => {
   let geoTagID = req.params.id;
   let removedGeoTag = tagStore.removeGeoTag(geoTagID);
-  res.status(203).json(JSON.stringify(removedGeoTag));
+
+  
+  res.status(201).json(JSON.stringify(removedGeoTag));
  })
  module.exports = router;

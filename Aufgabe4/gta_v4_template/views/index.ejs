@@ -86,7 +86,7 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper row">
-                <ul class="discovery__results col-3" id="discovery__results_unorderedList">
+                <ul class="discovery__results col-3" id="discovery__results_unorderedList" data-taglist = "<%= taglist %>">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
                         <li> <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                     <% }); %>

@@ -21,6 +21,9 @@
         this.longitude = longitude;
         this.hashtag = hashtag;
     }
+
+
 }
+
 
 module.exports = GeoTag;
