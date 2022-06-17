@@ -69,7 +69,7 @@
         let geoTagHashtag;
 
 
-        for (let i = 0; i < this.geoTags.length; i++) {
+        for (let i = 0; i < this.geoTags.length - 1; i++) {
             geoTagName = this.geoTags[i].name;
             geoTagHashtag = this.geoTags[i].hashtag;
             if ((new RegExp(keyword).test(geoTagName)) || (new RegExp(keyword).test(geoTagHashtag))) {
