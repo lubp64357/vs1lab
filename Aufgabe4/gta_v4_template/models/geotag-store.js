@@ -41,27 +41,47 @@
      }
  
      removeGeoTag(name) {
-        for (let i = 0; i < this.#geoTags.length; i++) {
-            if (this.#geoTags[i].name == name) {
-                let removedGeoTag = this.#geoTags[i];
-                this.#geoTags.splice(i, 1);
-                return removedGeoTag;
-            }
-        }
-    }
+         for (let i = 0; i < this.#geoTags.length - 1; i++) {
+             if (this.#geoTags[i].name === name) {
+                 this.#geoTags.splice(i, 1);
+             }
+         }
+     }
  
-     getNearbyGeoTags(location, radius) {
+     getNearbyGeoTags(location) {
          let nearbyGeoTags = [];
          let distance;
-        this.#geoTags.forEach(geotag=>{
-            distance = this.calculateDistance(location, geotag);
-             if (distance <= radius) {
-                 nearbyGeoTags.push(geotag);
+ 
+         for (let i = 0; i < this.#geoTags.length; i++) {
+             distance = this.calculateDistance(location, this.#geoTags[i]);
+             if (distance < 10) {
+                 nearbyGeoTags.push(this.#geoTags[i]);
              }
-         });
+         }
          return nearbyGeoTags;
      }
 
+    searchNearbyGeoTags1(keyword) {
+        
+        let matches;
+        let nearbyGeoTags;
+        let geoTagName;
+        let geoTagHashtag;
+
+
+        for (let i = 0; i < this.geoTags.length - 1; i++) {
+            geoTagName = this.geoTags[i].name;
+            geoTagHashtag = this.geoTags[i].hashtag;
+            if ((new RegExp(keyword).test(geoTagName)) || (new RegExp(keyword).test(geoTagHashtag))) {
+                matches = this.geoTags[i];
+            
+                    nearbyGeoTags.push(matches);
+
+            }
+        }
+
+        return nearbyGeoTags;
+    }
     searchNearbyGeoTags(keyword, location,radius) {
         let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
         keyword=keyword.toLowerCase();
@@ -76,23 +96,6 @@
              }
         });
     }
-
-    searchGeoTag(id){
-        for (let i = 0; i < this.#geoTags.length; i++) {
-            if(this.#geoTags[i].name === id) {
-                return this.#geoTags[i];
-            }
-        }
-    }
-
-    changeGeoTag(geoTag, id){
-        let foundGeoTag = this.searchGeoTag(id);
-        if(foundGeoTag !== undefined) {
-            this.removeGeoTag(foundGeoTag.name)
-            this.#geoTags.unshift(geoTag);
-        }
-    }
-
 
     calculateDistance(from, to) {
         let fromX = from.latitude;

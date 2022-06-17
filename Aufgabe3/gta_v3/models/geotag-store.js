@@ -61,10 +61,10 @@
          return nearbyGeoTags;
      }
 
-    searchNearbyGeoTags(keyword) {
+    searchNearbyGeoTags1(keyword) {
         
         let matches;
-        let nearbyGeoTags = [];
+        let nearbyGeoTags;
         let geoTagName;
         let geoTagHashtag;
 
@@ -81,6 +81,20 @@
         }
 
         return nearbyGeoTags;
+    }
+    searchNearbyGeoTags(keyword, location,radius) {
+        let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
+        keyword=keyword.toLowerCase();
+        return nearbyGeoTags.filter(function(geotag){
+            if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {//if not -1 keyword is in string so returns true if keyword inside name or hashtag
+                return true;
+                
+             }
+             else{
+                console.log(geotag.name);
+                 return false;
+             }
+        });
     }
 
     calculateDistance(from, to) {
