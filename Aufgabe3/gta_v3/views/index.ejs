@@ -1,4 +1,6 @@
 <!-- TODO: HTML AUS AUFGABE2 HIERHER KOPIEREN UND DIE BEISPIEL-EINTRÄGE DER DISCOVERY-LISTE MIT DEN FOLGENDEN ZEILEN ERSETZEN -->
+
+
 <!DOCTYPE html>
 
 <!-- File origin: VS1LAB A1a -->
@@ -33,27 +35,28 @@
                     <legend>Enter new tag</legend>
                     <div class="tag_formular">
                         <label>Latitude:
-                            <input id="tag_latitude" value="<%= latitude %>" type="number" step=0.000001 name="latitude"> <!--readonly/disabled-->
+                            <input id="tag_latitude" type="number"  step = "any" name = "tagging_latitude"  value='<%= tagging_latitude %>'
+                                >
                         </label>
                         <label>
                             Longitude:
-                            <input id="tag_longitude" value="<%= longitude %>" type="number" step=0.000001 name="longitude">
+                            <input id="tag_longitude" type="number" step = "any"  name = "tagging_longitude" value='<%= tagging_longitude %>'
+                                >
                         </label>
                         <label>
                             Name:
-                            <input id="name" type="text" name="name" placeholder="e.g. Central Berlin"
+                            <input id="tag_name" type="text" name = "tagging_name"placeholder="e.g. Central Berlin"
                                 maxlength="10" required>
                         </label>
                         <label>
                             Hashtag:
-                            <input id="hashtag" type="text" name="hashtag" placeholder="e. g. #ber"
+                            <input id="tag_hashtag" type="text" name="tagging_hashtag"  placeholder="e. g. #ber"
                                 pattern="^#[a-zA-Z]{1,10}">
                         </label>
-                        <input id="addTag" type="submit" value="Add Tag">
+                        <input id= "addTag" type="submit" value="Add Tag">
                     </div>
                 </fieldset>
                 <!-- ... your code here ... -->
-
             </form>
             <!-- ############### VS1Lab 1a Form 1 End -->
 
@@ -70,12 +73,12 @@
                     <legend>Search term or keywords</legend>
                     <div class = "discovery_formular">
                     <label id = "discovery_latitude" hidden>Latitude:</label>
-                    <input id = "discovery_latitude_input" name="latitude" type="hidden" value="<%= latitude %>">
+                    <input id = "discovery_latitude_input" type="hidden">
 
                     <label id = "discovery_longtitude" hidden>Longtitude:</label>
-                    <input id = "discovery_longtitude_input" name="longitude" type="hidden" value="<%= longitude %>">
+                    <input id = "discovery_longtitude_input" type="hidden">
 
-                    <input id="searchTerm" name="keyword" type="text" placeholder="e.g. Berlin">
+                    <input id="searchTerm" name="discovery_searchterm" type="text" placeholder="e.g. Berlin" required >
                     
                     <input id= "search" type="submit" value="Search">
                     </div>
@@ -86,14 +89,14 @@
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper row">
-                <ul class="discovery__results col-3" id="discovery__results_unorderedList" data-taglist = "<%= taglist %>">
+                <ul class="discovery__results col-3">
                     <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                        <li> <%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
+                        <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
                     <% }); %>
                 </ul>
 
-                <div class="discovery__map col-6">
-                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags="<%= stringTaglist %>"/>
+                <div class="discovery__map col-8">
+                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags = '<%= mapView %>' />
                     <span>Result map</span>
                 </div>
             </div>
@@ -104,13 +107,9 @@
     <footer class="footer">
         <span id = "footer_text">(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
-    <!-- Load JavaScripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!--load required class script before geotagging-->
+    <script src="./javascripts/geotagging.js"></script>
     <script src="./javascripts/location-helper.js"></script>
     <script src="./javascripts/map-manager.js"></script>
-    <script src="./javascripts/geotagging.js"></script>
 </body>
 
 </html>
