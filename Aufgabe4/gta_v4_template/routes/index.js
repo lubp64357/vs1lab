@@ -258,7 +258,7 @@ router.get('/api/geotags/:id', (req, res) => {
  router.delete('api/geotags/:id', (req, res) => {
   let geoTagID = req.params.id;
   let removedGeoTag = tagStore.removeGeoTag(geoTagID);
-
+  
   
   res.status(201).json(JSON.stringify(removedGeoTag));
  })
