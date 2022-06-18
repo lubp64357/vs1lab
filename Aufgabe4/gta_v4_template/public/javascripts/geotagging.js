@@ -62,52 +62,54 @@ function updateLists(geotags){
 }
 
 
-async function postAdd(geotag){
+
+
+async function submitTag(evt){
+    evt.preventDefault();
+   
+    let geotag = {
+        name: document.getElementById("name").value,
+        latitude: document.getElementById("tag_latitude").value,
+        longitude: document.getElementById("tag_longitude").value,
+        hashtag: document.getElementById("hashtag").value
+    }
+
     let res = await fetch("http://localhost:3000/api/geotags", {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(geotag),
     });
 
-    return await res.json();
+    res.json().then(getMapUpdate).then(updateLists);
+    document.getElementById("name").value = "";
+    document.getElementById("hashtag").value = "";
 }
 
-async function getTagList(searchTerm) {
-    
-    let response = await fetch("http://localhost:3000/api/geotags?searchterm=" + searchTerm);
-    
-    
-    return await response.json();
+async function submitDiscovery(evt){
+    evt.preventDefault();
+        //only added latitude and longitude
+       let searchTerm = document.getElementById("searchTerm").value;
+       let latitude=document.getElementById("discovery_latitude_input").value;
+       let longitude=document.getElementById("discovery_longtitude_input").value;
+
+       let url=`http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
+       if (searchTerm!=""){
+            url+="&searchterm=" + searchTerm
+       }
+       let response = await fetch(url);
+       response.json().then(getMapUpdate).then(updateLists);
 }
+
 
 
 function initSubmitForms(){
 
     //Tag
-    document.getElementById("tag-form").addEventListener("submit", async function (evt) {
-        evt.preventDefault();
-   
-       let geotag = {
-           name: document.getElementById("name").value,
-           latitude: document.getElementById("tag_latitude").value,
-           longitude: document.getElementById("tag_longitude").value,
-           hashtag: document.getElementById("hashtag").value
-       }
-   
-       postAdd(geotag).then(getMapUpdate).then(updateLists);
-       document.getElementById("name").value = "";
-       document.getElementById("hashtag").value = "";
-   }, true);
+    document.getElementById("tag-form").addEventListener("submit", submitTag);
    
    
    //Discovery
-   document.getElementById("discoveryFilterForm").addEventListener("submit", async function (evt) {
-        evt.preventDefault();
-   
-       let searchTerm = document.getElementById("searchTerm").value;
-   
-       await getTagList(searchTerm).then(getMapUpdate).then(updateLists);
-   }, true);
+   document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
 
 
 

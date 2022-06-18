@@ -52,6 +52,17 @@
             }
         )
      }
+
+     removeGeoTagById(id){
+        if(id in this.geoTags){
+            let delTag=this.geoTags[id];
+            delete this.geoTags[id];
+            return delTag;
+         }
+         return null;
+
+     }
+
  
      getNearbyGeoTags(location, radius) {
         let nearbyGeoTags = [];
@@ -83,24 +94,14 @@
     
     searchNearbyGeoTags1(keyword) {
         
-        let matches;
-        let nearbyGeoTags = [];
-        let geoTagName;
-        let geoTagHashtag;
-
-
-        for (let i = 0; i < this.geoTags.length; i++) {
-            geoTagName = this.geoTags[i].name;
-            geoTagHashtag = this.geoTags[i].hashtag;
-            if ((new RegExp(keyword).test(geoTagName)) || (new RegExp(keyword).test(geoTagHashtag))) {
-                matches = this.geoTags[i];
-            
-                    nearbyGeoTags.push(matches);
-
+        let matches=[];
+        keyword=keyword.toLowerCase();
+        for (let [id, geotag] of Object.entries(this.geoTags)) {
+            if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {
+                matches.push(geotag);
             }
-        }
-
-        return nearbyGeoTags;
+          }
+          return matches;
     }
 
 

@@ -125,8 +125,8 @@
     let hashtag = req.body.hashtag;
 
     let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
-    tagStore.addGeoTag(geoTagObject);
-    res.append('URL', "api/geotags/" + name);
+    let id= tagStore.addGeoTag(geoTagObject);
+    res.header('Location', "api/geotags/" + id);
     res.status(201).json(JSON.stringify(tagStore.geoTags));
 })
  
@@ -185,11 +185,10 @@ router.get('/api/geotags/:id', (req, res) => {
   */
  
  // TODO: ... your code here ...
- router.delete('api/geotags/:id', (req, res) => {
+ router.delete('/api/geotags/:id', (req, res) => {
   let geoTagID = req.params.id;
-  let removedGeoTag = tagStore.removeGeoTag(geoTagID);
-  
-  
-  res.status(201).json(JSON.stringify(removedGeoTag));
+  let removedGeoTag = tagStore.removeGeoTagById(geoTagID);
+  res.status(201);
+  res.json(JSON.stringify(removedGeoTag));
  })
  module.exports = router;
