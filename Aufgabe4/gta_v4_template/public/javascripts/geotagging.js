@@ -36,6 +36,7 @@ function updateLocation(){
 }
 
 function getMapUpdate(geotags){
+    console.log(geotags);
     let mapManager = new MapManager("EussyP3bKYyMVPyfB8Y46Ng5VVQfBRyY");
     let latitude = document.getElementById("tag_latitude").value;
     let longitude = document.getElementById("tag_longitude").value;
@@ -80,31 +81,39 @@ async function getTagList(searchTerm) {
 }
 
 
+function initSubmitForms(){
 
-document.getElementById("tag-form").addEventListener("submit", function (evt) {
-     evt.preventDefault();
+    //Tag
+    document.getElementById("tag-form").addEventListener("submit", async function (evt) {
+        evt.preventDefault();
+   
+       let geotag = {
+           name: document.getElementById("name").value,
+           latitude: document.getElementById("tag_latitude").value,
+           longitude: document.getElementById("tag_longitude").value,
+           hashtag: document.getElementById("hashtag").value
+       }
+   
+       postAdd(geotag).then(getMapUpdate).then(updateLists);
+       document.getElementById("name").value = "";
+       document.getElementById("hashtag").value = "";
+   }, true);
+   
+   
+   //Discovery
+   document.getElementById("discoveryFilterForm").addEventListener("submit", async function (evt) {
+        evt.preventDefault();
+   
+       let searchTerm = document.getElementById("searchTerm").value;
+   
+       await getTagList(searchTerm).then(getMapUpdate).then(updateLists);
+   }, true);
 
-    let geotag = {
-        name: document.getElementById("name").value,
-        latitude: document.getElementById("tag_latitude").value,
-        longitude: document.getElementById("tag_longitude").value,
-        hashtag: document.getElementById("hashtag").value
-    }
-
-    postAdd(geotag).then(getMapUpdate).then(updateLists);
-    document.getElementById("name").value = "";
-    document.getElementById("hashtag").value = "";
-}, true);
 
 
+}
 
-document.getElementById("discoveryFilterForm").addEventListener("submit", function (evt) {
-     evt.preventDefault();
 
-    let searchTerm = document.getElementById("searchTerm").value;
-
-    getTagList(searchTerm).then(getMapUpdate).then(updateLists);
-}, true);
 
 // // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
@@ -115,5 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     added the new created element in the unordered list
     */
     updateLocation();
+
+    initSubmitForms();
        
 })

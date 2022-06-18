@@ -8,7 +8,8 @@
 
  const GeoTag = require("./geotag");
  const GeoTagExamples = require("./geotag-examples");
- 
+ const {v4 : uuidv4} = require('uuid');
+
  /**
   * A class for in-memory-storage of geotags
   *
@@ -30,38 +31,40 @@
  
  class InMemoryGeoTagStore {
  
-     #geoTags = [];
+     #geoTags = {};
  
      get geoTags() {
          return this.#geoTags;
      }
  
      addGeoTag(geotag) {
-         this.#geoTags.push(geotag);
+        let id=uuidv4()
+        this.geoTags[id]=geotag;
+        return id;
      }
  
      removeGeoTag(name) {
-        for (let i = 0; i < this.#geoTags.length; i++) {
-            if (this.#geoTags[i].name == name) {
-                let removedGeoTag = this.#geoTags[i];
-
-                this.#geoTags.splice(i, 1);
-                return removedGeoTag;
+        Object.entries(this.geoTags).forEach(
+            (key, value)=>{
+                if (value.name === name) {
+                    delete this.geoTags.key;
+                }
             }
-        }
-    }
+        )
+     }
  
      getNearbyGeoTags(location, radius) {
-         let nearbyGeoTags = [];
-         let distance;
-        this.#geoTags.forEach(geotag=>{
-            distance = this.calculateDistance(location, geotag);
-             if (distance <= radius) {
-                 nearbyGeoTags.push(geotag);
-             }
-         });
-         return nearbyGeoTags;
-     }
+        let nearbyGeoTags = [];
+        let distance;
+    
+        for (let [id, geotag] of Object.entries(this.geoTags)) {
+           distance = this.calculateDistance(location, geotag);
+            if (distance <= radius) {
+                nearbyGeoTags.push(geotag);
+            }
+         }
+        return nearbyGeoTags;
+    }
 
     searchNearbyGeoTags(keyword, location,radius) {
         let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
@@ -72,7 +75,7 @@
                 
              }
              else{
-                console.log(geotag.name);
+                //console.log(geotag.name);
                  return false;
              }
         });
@@ -102,19 +105,18 @@
 
 
     searchGeoTag(id){
-        for (let i = 0; i < this.#geoTags.length; i++) {
-            if(this.#geoTags[i].name === id) {
-                return this.#geoTags[i];
-            }
+        if(id in this.geoTags){
+            return this.geoTags[id];
+        }
+        else{
+            return null;
         }
     }
 
     changeGeoTag(geoTag, id){
-        let foundGeoTag = this.searchGeoTag(id);
-        if(foundGeoTag !== undefined) {
-            this.removeGeoTag(foundGeoTag.name)
-            this.#geoTags.unshift(geoTag);
-        }
+        if(id in this.geoTags){
+            this.geoTags[id]=geoTag;
+         }
     }
 
 
