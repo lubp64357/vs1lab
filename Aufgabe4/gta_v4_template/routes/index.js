@@ -102,6 +102,7 @@
   fullItemCount=nearbyGeoTagData[1];
   pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
 
+  res.status(200);
   res.json({
     "pageAmount": tagStore.pageItemCount,
     "itemAmount": fullItemCount,
@@ -141,7 +142,7 @@
     let fullItemCount=nearbyGeoTagData[1];
     let pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
     res.header('Location', "api/geotags/" + id);
-    res.status(201)
+    res.status(201);
     res.json({
       "pageAmount": tagStore.pageItemCount,
       "itemAmount": fullItemCount,

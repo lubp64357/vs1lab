@@ -18,11 +18,16 @@ let lastSearchTerm="";
  * A function to retrieve the current location and update the page.
  * It is called once the page has been fully loaded.
  */
-
+function useDebugLocation(){
+    document.getElementById("tag_latitude").value=49.015636;
+    document.getElementById("tag_longitude").value=8.389318;
+    document.getElementById("discovery_latitude_input").value = 49.015636;
+    document.getElementById("discovery_longtitude_input").value =8.389318;
+}
     
 async function updateLocation(){
     
-    LocationHelper.findLocation(async function(helper) {
+    await LocationHelper.findLocation(async function(helper) {
         if (document.getElementById("tag_latitude").value == "" || document.getElementById("tag_longitude").value == "") {
             document.getElementById("tag_latitude").value = helper.latitude;
             document.getElementById("tag_longitude").value = helper.longitude;
@@ -32,7 +37,7 @@ async function updateLocation(){
             
             //let tagList = JSON.parse(document.getElementById("mapView").getAttribute("data-tags"));
             //console.log(tagList);
-
+            useDebugLocation();
             //new Pagination start call: lädt alle tags in der Nähe
             let url=`http://localhost:3000/api/geotags?latitude=${helper.latitude}&longitude=${helper.longitude}`;
             let response = await fetch(url);
