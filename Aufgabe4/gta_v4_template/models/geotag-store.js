@@ -32,7 +32,8 @@
  class InMemoryGeoTagStore {
  
      #geoTags = {};
- 
+     pageItemCount=4;
+
      get geoTags() {
          return this.#geoTags;
      }
@@ -63,9 +64,12 @@
 
      }
 
- 
-     getNearbyGeoTags(location, radius) {
-        
+     /*
+     Returns all geotags around the location
+     If page=-1 returns all, otherwise returns specific page
+     */
+     getNearbyGeoTags(location, radius, page=0) {
+      
         let nearbyGeoTags = [];
         let distance;
 
@@ -73,24 +77,36 @@
             for (let [id, geotag] of Object.entries(this.geoTags)) {
                 nearbyGeoTags.push(geotag);
          }
-         return nearbyGeoTags;
         }
-    
+        else{
         for (let [id, geotag] of Object.entries(this.geoTags)) {
            distance = this.calculateDistance(location, geotag);
             if (distance <= radius) {
                 nearbyGeoTags.push(geotag);
             }
          }
-        return nearbyGeoTags;
+        }
+
+        let itemCount=nearbyGeoTags.length;
+         //gebe seitenhaft zurück, falls -1 alle
+         let tmpGeotags=nearbyGeoTags;
+         nearbyGeoTags=[];
+         console.log(page);
+         if(page!=-1){
+            for(let i=page*this.pageItemCount; i<(page+1)+this.pageItemCount&&i<tmpGeotags.length; i++){
+                nearbyGeoTags.push(tmpGeotags[i]);
+            }
+         }
+
+        return [nearbyGeoTags, itemCount];
     }
 
-    searchNearbyGeoTags(keyword, location,radius) {
+    searchNearbyGeoTags(keyword, location,radius, page=0) {
 
-        let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
+        let nearbyGeoTags=this.getNearbyGeoTags(location, radius, -1)[0];
        
         keyword=keyword.toLowerCase();
-        return nearbyGeoTags.filter(function(geotag){
+        nearbyGeoTags= nearbyGeoTags.filter(function(geotag){
             if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {//if not -1 keyword is in string so returns true if keyword inside name or hashtag
                 return true;
                 
@@ -100,6 +116,16 @@
                  return false;
              }
         });
+        let itemCount=nearbyGeoTags.length;
+        let pageGeoTags=[];
+
+        for(let i=page*this.pageItemCount; i<(page+1)+this.pageItemCount&&i<nearbyGeoTags.length; i++){
+            pageGeoTags.push(nearbyGeoTags[i]);
+        }
+
+        return [pageGeoTags, itemCount];
+
+
     }
     
 

@@ -199,13 +199,7 @@ html {
     flex-direction: column;
   }
   
-  .discovery__results{
-    list-style-type: none;
-  }
-  
-  .discovery__wrapper{
-    margin-top: 20px;
-  }
+
   
   li {
     padding: 10px;
@@ -259,5 +253,34 @@ html {
     .main_discovery{
       width: 100%;
     }
+
+
+
     
   }
+
+.resultFooter {
+  display: none;
+  flex-direction: row;
+  align-self: center;
+  align-items: center;
+  width:auto;
+
+}
+
+.paginated_results{
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 300px
+}
+
+.discovery__results{
+  width: max-content;
+
+  list-style-type: none;
+  overflow: scroll;
+  height: 300px;
+  min-width: 300px
+}

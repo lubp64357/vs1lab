@@ -70,7 +70,17 @@
   
   let latitude = req.query.latitude;
   let longitude = req.query.longitude;
-  let nearbyGeoTags;
+
+  //for pagination
+  let page=parseInt(req.query.page);
+  
+  let pageCount=0;
+  let fullItemCount=0;
+
+  if(req.query.page===undefined){
+    page=0;
+  }
+  let nearbyGeoTagData;
   let tmpRadius=radius;
 
   console.log(latitude===undefined);
@@ -80,12 +90,23 @@
   if("searchterm" in req.query){
     let searchterm = req.query.searchterm;
 
-    nearbyGeoTags= tagStore.searchNearbyGeoTags(searchterm,{latitude: latitude, longitude: longitude}, tmpRadius);
+    nearbyGeoTagData= tagStore.searchNearbyGeoTags(searchterm,{latitude: latitude, longitude: longitude}, tmpRadius, page);
   }
   else{
-    nearbyGeoTags=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, tmpRadius);
+    nearbyGeoTagData=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, tmpRadius, page);
   }
-  res.json(JSON.stringify(nearbyGeoTags));
+
+  let nearbyGeoTags=nearbyGeoTagData[0];
+  fullItemCount=nearbyGeoTagData[1];
+  pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
+
+  res.json({
+    "pageAmount": tagStore.pageItemCount,
+    "itemAmount": fullItemCount,
+    "pages": pageCount,
+    "page": page,
+    "geotags": JSON.stringify(nearbyGeoTags)
+  });
   
 });
  

@@ -8,7 +8,9 @@
 // The console window must be opened explicitly in the browser.
 // Try to find this output in the browser...
 console.log("The geoTagging script is going to start...");
-
+let pageCount=10;
+let page=0
+let itemCount=0;
 
 /**
  * TODO: 'updateLocation'
@@ -57,8 +59,16 @@ function updateLists(geotags){
             let li = document.createElement("li");
             li.innerHTML = gtag.name + " (" + gtag.latitude + ", " + gtag.longitude + ") " + gtag.hashtag;
             list.appendChild(li);
-        })
+        });
+
+         //unhide button control
+         document.getElementById("pageControls").style.display="flex";
     }
+    else{
+        document.getElementById("pageControls").style.display="none";
+    }
+
+   
 }
 
 
@@ -98,6 +108,17 @@ async function submitDiscovery(evt){
        }
        let response = await fetch(url);
        response.json().then(getMapUpdate).then(updateLists);
+
+       
+       
+}
+
+async function movePage(pageDir){
+    if(page+pageDir>=0&&page+pageDir<=pageCount){
+        page=page+pageDir;
+        document.getElementById("page_count").innerText=`${page+1}/${pageCount+1} (${itemCount})`;
+        console.log(page);
+    }
 }
 
 
@@ -111,8 +132,16 @@ function initSubmitForms(){
    //Discovery
    document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
 
+}
 
 
+function initPagination(){
+    document.getElementById("page_left").addEventListener("click", event=>{
+        movePage(-1);
+    });
+    document.getElementById("page_right").addEventListener("click", event=>{
+        movePage(1);
+    });
 }
 
 
@@ -128,5 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
 
     initSubmitForms();
+
+    initPagination();
        
 })
