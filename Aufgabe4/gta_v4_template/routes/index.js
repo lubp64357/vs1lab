@@ -66,44 +66,28 @@
   */
  
  // TODO: ... your code here ...
- router.get('/api/geotags', (req, res) => {
-  let discoveryQuery = req.query.searchterm;
-  let latitudeQuery = req.query.latitude;
-  let longitudeQuery = req.query.longitude;
-  let filterArray = [];
-  let nearbyGeoTags = tagStore.geoTags;
-  // if both availlable then filtered
-  if (discoveryQuery !== undefined && latitudeQuery !== undefined && longitudeQuery !== undefined) {
-      nearbyGeoTags = [];
-      filterArray = tagStore.searchNearbyGeoTags(discoveryQuery, {latitude:latitudeQuery, longitude: longitudeQuery}, radius);
-      for(let i = 0; i < filterArray.length; i++) {
-          distance = tagStore.calculateDistance(filterArray[i], {latitude:latitudeQuery, longitude: longitudeQuery});
-          if (distance < radius) {
-              nearbyGeoTags.push(filterArray[i]);
-          }
-      }
-      console.log(nearbyGeoTags)
-      console.log("Punkt1")
-  } else if (latitudeQuery !== undefined && longitudeQuery !== undefined) {
-    nearbyGeoTags = tagStore.getNearbyGeoTags({latitude:latitudeQuery, longitude: longitudeQuery}, radius);
-    console.log(nearbyGeoTags)
-    console.log("Punkt2")
-}
-  // if searchterm, then filtered
-  else if (discoveryQuery !== undefined) {
-      nearbyGeoTags = tagStore.searchNearbyGeoTags1(discoveryQuery);
+ router.get("/api/geotags", (req, res) => {
+  
+  let latitude = req.query.latitude;
+  let longitude = req.query.longitude;
+  let nearbyGeoTags;
+  let tmpRadius=radius;
 
-      console.log(nearbyGeoTags)
-      console.log("Punkt4")
+  console.log(latitude===undefined);
+  if(latitude === undefined || longitude===undefined){
+    tmpRadius=0;
   }
-  // if lat + long available, then filtered
-   else {
+  if("searchterm" in req.query){
+    let searchterm = req.query.searchterm;
 
-  console.log(nearbyGeoTags)
-  console.log("Punkt3")}
-
+    nearbyGeoTags= tagStore.searchNearbyGeoTags(searchterm,{latitude: latitude, longitude: longitude}, tmpRadius);
+  }
+  else{
+    nearbyGeoTags=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, tmpRadius);
+  }
   res.json(JSON.stringify(nearbyGeoTags));
- })
+  
+});
  
  /**
   * Route '/api/geotags' for HTTP 'POST' requests.

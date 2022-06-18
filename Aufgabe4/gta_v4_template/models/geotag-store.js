@@ -65,8 +65,16 @@
 
  
      getNearbyGeoTags(location, radius) {
+        
         let nearbyGeoTags = [];
         let distance;
+
+        if(radius===0){ //if no radius just return all tags in array
+            for (let [id, geotag] of Object.entries(this.geoTags)) {
+                nearbyGeoTags.push(geotag);
+         }
+         return nearbyGeoTags;
+        }
     
         for (let [id, geotag] of Object.entries(this.geoTags)) {
            distance = this.calculateDistance(location, geotag);
@@ -78,7 +86,9 @@
     }
 
     searchNearbyGeoTags(keyword, location,radius) {
+
         let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
+       
         keyword=keyword.toLowerCase();
         return nearbyGeoTags.filter(function(geotag){
             if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {//if not -1 keyword is in string so returns true if keyword inside name or hashtag
@@ -92,17 +102,6 @@
         });
     }
     
-    searchNearbyGeoTags1(keyword) {
-        
-        let matches=[];
-        keyword=keyword.toLowerCase();
-        for (let [id, geotag] of Object.entries(this.geoTags)) {
-            if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {
-                matches.push(geotag);
-            }
-          }
-          return matches;
-    }
 
 
     searchGeoTag(id){
