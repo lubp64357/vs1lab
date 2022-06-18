@@ -47,6 +47,7 @@
  tagStore.tagExamples();
  
  
+ 
  router.get('/', (req, res) => {
    res.render('index', { taglist: [], latitude: req.body.latitude, longitude: req.body.longitude, stringTaglist: "[]" });
  });
@@ -83,10 +84,11 @@
   let nearbyGeoTagData;
   let tmpRadius=radius;
 
-  console.log(latitude===undefined);
   if(latitude === undefined || longitude===undefined){
     tmpRadius=0;
   }
+
+
   if("searchterm" in req.query){
     let searchterm = req.query.searchterm;
 
@@ -131,8 +133,22 @@
 
     let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
     let id= tagStore.addGeoTag(geoTagObject);
+
+
+    //new pagination
+    let nearbyGeoTagData=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, radius, 0);
+    let nearbyGeoTags=nearbyGeoTagData[0];
+    let fullItemCount=nearbyGeoTagData[1];
+    let pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
     res.header('Location', "api/geotags/" + id);
-    res.status(201).json(JSON.stringify(tagStore.geoTags));
+    res.status(201)
+    res.json({
+      "pageAmount": tagStore.pageItemCount,
+      "itemAmount": fullItemCount,
+      "pages": pageCount,
+      "page": 0,
+      "geotags": JSON.stringify(nearbyGeoTags)
+    });
 })
  
  /**

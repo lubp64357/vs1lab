@@ -9,8 +9,8 @@ Content-Type: application/json
 
 {
   "name":"test",
-  "latitude":"51",
-  "longitude":"52",
+  "latitude":"49",
+  "longitude":"8.4",
   "hashtag":"#test"
 }
 ###

@@ -89,13 +89,13 @@
 
         let itemCount=nearbyGeoTags.length;
          //gebe seitenhaft zurück, falls -1 alle
-         let tmpGeotags=nearbyGeoTags;
-         nearbyGeoTags=[];
-         console.log(page);
+         
          if(page!=-1){
-            for(let i=page*this.pageItemCount; i<(page+1)+this.pageItemCount&&i<tmpGeotags.length; i++){
-                nearbyGeoTags.push(tmpGeotags[i]);
+            let tmpGeotags=[];
+            for(let i=page*this.pageItemCount; i<(page+1)*this.pageItemCount&&i<nearbyGeoTags.length; i++){
+                tmpGeotags.push(nearbyGeoTags[i]);
             }
+            return [tmpGeotags, itemCount];
          }
 
         return [nearbyGeoTags, itemCount];
@@ -104,7 +104,6 @@
     searchNearbyGeoTags(keyword, location,radius, page=0) {
 
         let nearbyGeoTags=this.getNearbyGeoTags(location, radius, -1)[0];
-       
         keyword=keyword.toLowerCase();
         nearbyGeoTags= nearbyGeoTags.filter(function(geotag){
             if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {//if not -1 keyword is in string so returns true if keyword inside name or hashtag
@@ -119,7 +118,7 @@
         let itemCount=nearbyGeoTags.length;
         let pageGeoTags=[];
 
-        for(let i=page*this.pageItemCount; i<(page+1)+this.pageItemCount&&i<nearbyGeoTags.length; i++){
+        for(let i=page*this.pageItemCount; i<(page+1)*this.pageItemCount&&i<nearbyGeoTags.length; i++){
             pageGeoTags.push(nearbyGeoTags[i]);
         }
 
