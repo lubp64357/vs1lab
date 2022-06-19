@@ -8,8 +8,7 @@
 
  const GeoTag = require("./geotag");
  const GeoTagExamples = require("./geotag-examples");
- const {v4 : uuidv4} = require('uuid');
-
+ 
  /**
   * A class for in-memory-storage of geotags
   *
@@ -31,51 +30,41 @@
  
  class InMemoryGeoTagStore {
  
-     #geoTags = {};
+     #geoTags = [];
  
      get geoTags() {
          return this.#geoTags;
      }
  
      addGeoTag(geotag) {
-        let id=uuidv4()
-        this.geoTags[id]=geotag;
-        return id;
+         this.#geoTags.push(geotag);
      }
  
      removeGeoTag(name) {
-        Object.entries(this.geoTags).forEach(
-            (key, value)=>{
-                if (value.name === name) {
-                    delete this.geoTags.key;
-                }
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if (this.#geoTags[i].name === name) {
+                let removedGeoTag = this.#geoTags[i];
+                console.log(removedGeoTag);
+                this.#geoTags.splice(i, 1);
+                return removedGeoTag;
+            } else {
+                return null;
             }
-        )
-     }
-
-     removeGeoTagById(id){
-        if(id in this.geoTags){
-            let delTag=this.geoTags[id];
-            delete this.geoTags[id];
-            return delTag;
-         }
-         return null;
-
-     }
-
+            
+        }
+    }
  
      getNearbyGeoTags(location, radius) {
-        let nearbyGeoTags = [];
-        let distance;
-    
-        for (let [id, geotag] of Object.entries(this.geoTags)) {
-           distance = this.calculateDistance(location, geotag);
-            if (distance <= radius) {
-                nearbyGeoTags.push(geotag);
-            }
-         }
-        return nearbyGeoTags;
-    }
+         let nearbyGeoTags = [];
+         let distance;
+        this.#geoTags.forEach(geotag=>{
+            distance = this.calculateDistance(location, geotag);
+             if (distance <= radius) {
+                 nearbyGeoTags.push(geotag);
+             }
+         });
+         return nearbyGeoTags;
+     }
 
     searchNearbyGeoTags(keyword, location,radius) {
         let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
@@ -85,8 +74,9 @@
                 return true;
                 
              }
+
              else{
-                //console.log(geotag.name);
+                console.log(geotag.name);
                  return false;
              }
         });
@@ -94,33 +84,43 @@
     
     searchNearbyGeoTags1(keyword) {
         
-        let matches=[];
-        keyword=keyword.toLowerCase();
-        for (let [id, geotag] of Object.entries(this.geoTags)) {
-            if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {
-                matches.push(geotag);
+        let matches;
+        let nearbyGeoTags = [];
+        let geoTagName;
+        let geoTagHashtag;
+
+
+        for (let i = 0; i < this.geoTags.length; i++) {
+            geoTagName = this.geoTags[i].name;
+            geoTagHashtag = this.geoTags[i].hashtag;
+            if ((new RegExp(keyword).test(geoTagName)) || (new RegExp(keyword).test(geoTagHashtag))) {
+                matches = this.geoTags[i];
+            
+                    nearbyGeoTags.push(matches);
+
             }
-          }
-          return matches;
+        }
+
+        return nearbyGeoTags;
     }
 
 
     searchGeoTag(id){
-        if(id in this.geoTags){
-            return this.geoTags[id];
-        }
-        else{
-            return null;
+        for (let i = 0; i < this.#geoTags.length; i++) {
+            if(this.#geoTags[i].name === id) {
+                return this.#geoTags[i];
+            }
         }
     }
 
     changeGeoTag(geoTag, id){
-        if(id in this.geoTags){
-            this.geoTags[id]=geoTag;
-         }
+        let foundGeoTag = this.searchGeoTag(id);
+        if(foundGeoTag !== undefined) {
+            this.removeGeoTag(foundGeoTag.name)
+            this.#geoTags.unshift(geoTag);
+        }
     }
-
-
+    
     calculateDistance(from, to) {
         let fromX = from.latitude;
         let fromY = from.longitude;

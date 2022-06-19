@@ -47,6 +47,7 @@
  tagStore.tagExamples();
  
  
+ 
  router.get('/', (req, res) => {
    res.render('index', { taglist: [], latitude: req.body.latitude, longitude: req.body.longitude, stringTaglist: "[]" });
  });
@@ -66,44 +67,50 @@
   */
  
  // TODO: ... your code here ...
- router.get('/api/geotags', (req, res) => {
-  let discoveryQuery = req.query.searchterm;
-  let latitudeQuery = req.query.latitude;
-  let longitudeQuery = req.query.longitude;
-  let filterArray = [];
-  let nearbyGeoTags = tagStore.geoTags;
-  // if both availlable then filtered
-  if (discoveryQuery !== undefined && latitudeQuery !== undefined && longitudeQuery !== undefined) {
-      nearbyGeoTags = [];
-      filterArray = tagStore.searchNearbyGeoTags(discoveryQuery, {latitude:latitudeQuery, longitude: longitudeQuery}, radius);
-      for(let i = 0; i < filterArray.length; i++) {
-          distance = tagStore.calculateDistance(filterArray[i], {latitude:latitudeQuery, longitude: longitudeQuery});
-          if (distance < radius) {
-              nearbyGeoTags.push(filterArray[i]);
-          }
-      }
-      console.log(nearbyGeoTags)
-      console.log("Punkt1")
-  } else if (latitudeQuery !== undefined && longitudeQuery !== undefined) {
-    nearbyGeoTags = tagStore.getNearbyGeoTags({latitude:latitudeQuery, longitude: longitudeQuery}, radius);
-    console.log(nearbyGeoTags)
-    console.log("Punkt2")
-}
-  // if searchterm, then filtered
-  else if (discoveryQuery !== undefined) {
-      nearbyGeoTags = tagStore.searchNearbyGeoTags1(discoveryQuery);
+ router.get("/api/geotags", (req, res) => {
+  
+  let latitude = req.query.latitude;
+  let longitude = req.query.longitude;
 
-      console.log(nearbyGeoTags)
-      console.log("Punkt4")
+  //for pagination
+  let page=parseInt(req.query.page);
+  let pageCount=0;
+  let fullItemCount=0;
+
+  if(req.query.page===undefined){
+    page=0;
   }
-  // if lat + long available, then filtered
-   else {
+  let nearbyGeoTagData;
+  let tmpRadius=radius;
 
-  console.log(nearbyGeoTags)
-  console.log("Punkt3")}
+  if(latitude === undefined || longitude===undefined){
+    tmpRadius=0;
+  }
 
-  res.json(JSON.stringify(nearbyGeoTags));
- })
+
+  if("searchterm" in req.query){
+    let searchterm = req.query.searchterm;
+
+    nearbyGeoTagData= tagStore.searchNearbyGeoTags(searchterm,{latitude: latitude, longitude: longitude}, tmpRadius, page);
+  }
+  else{
+    nearbyGeoTagData=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, tmpRadius, page);
+  }
+
+  let nearbyGeoTags=nearbyGeoTagData[0];
+  fullItemCount=nearbyGeoTagData[1];
+  pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
+
+
+  res.status(200).json({
+    "pageAmount": tagStore.pageItemCount,
+    "itemAmount": fullItemCount,
+    "pages": pageCount,
+    "page": page,
+    "geotags": JSON.stringify(nearbyGeoTags)
+  });
+  
+});
  
  /**
   * Route '/api/geotags' for HTTP 'POST' requests.
@@ -126,12 +133,22 @@
 
     let geoTagObject = new GeoTag(name, latitude, longitude, hashtag);
     let id= tagStore.addGeoTag(geoTagObject);
-    let nearbyGeoTags = tagStore.getNearbyGeoTags({
-      latitude: latitude,
-      longitude: longitude
-    }, radius);
+
+
+    //new pagination
+    let nearbyGeoTagData=tagStore.getNearbyGeoTags({latitude: latitude, longitude: longitude}, radius, 0);
+    let nearbyGeoTags=nearbyGeoTagData[0];
+    let fullItemCount=nearbyGeoTagData[1];
+    let pageCount=Math.ceil(fullItemCount/tagStore.pageItemCount);
     res.header('Location', "api/geotags/" + id);
-    res.status(201).json(JSON.stringify(nearbyGeoTags));
+    res.status(201);
+    res.json({
+      "pageAmount": tagStore.pageItemCount,
+      "itemAmount": fullItemCount,
+      "pages": pageCount,
+      "page": 0,
+      "geotags": JSON.stringify(nearbyGeoTags)
+    });
 })
  
  /**
@@ -146,7 +163,6 @@
  
  // TODO: ... your code here ...
 router.get('/api/geotags/:id', (req, res) => {
-  
   let geoTagID = req.params.id
 
   let foundGeoTag = tagStore.searchGeoTag(geoTagID)

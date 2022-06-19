@@ -9,8 +9,8 @@ Content-Type: application/json
 
 {
   "name":"test",
-  "latitude":"51",
-  "longitude":"52",
+  "latitude":"49",
+  "longitude":"8.4",
   "hashtag":"#test"
 }
 ###
@@ -46,4 +46,9 @@ Content-Type: application/json
 
 //DELETE one GeoTag
 DELETE http://localhost:3000/api/geotags/45abf08f-70a3-4c6b-a30e-e47bce7b6663
+###
+
+//Pagination
+
+GET http://localhost:3000/api/geotags?page=0
 ###

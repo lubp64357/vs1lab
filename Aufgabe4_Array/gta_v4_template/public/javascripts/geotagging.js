@@ -36,7 +36,6 @@ function updateLocation(){
 }
 
 function getMapUpdate(geotags){
-    console.log(geotags);
     let mapManager = new MapManager("EussyP3bKYyMVPyfB8Y46Ng5VVQfBRyY");
     let latitude = document.getElementById("tag_latitude").value;
     let longitude = document.getElementById("tag_longitude").value;
@@ -62,11 +61,29 @@ function updateLists(geotags){
 }
 
 
+async function postAdd(geotag){
+    let res = await fetch("http://localhost:3000/api/geotags", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(geotag),
+    });
+
+    return await res.json();
+}
+
+async function getTagList(searchTerm) {
+    
+    let response = await fetch("http://localhost:3000/api/geotags?searchterm=" + searchTerm);
+    
+    
+    return await response.json();
+}
 
 
-async function submitTag(evt){
-    evt.preventDefault();
-   
+
+document.getElementById("tag-form").addEventListener("submit", function (evt) {
+     evt.preventDefault();
+
     let geotag = {
         name: document.getElementById("name").value,
         latitude: document.getElementById("tag_latitude").value,
@@ -74,48 +91,20 @@ async function submitTag(evt){
         hashtag: document.getElementById("hashtag").value
     }
 
-    let res = await fetch("http://localhost:3000/api/geotags", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(geotag),
-    });
-
-    res.json().then(getMapUpdate).then(updateLists);
+    postAdd(geotag).then(getMapUpdate).then(updateLists);
     document.getElementById("name").value = "";
     document.getElementById("hashtag").value = "";
-}
-
-async function submitDiscovery(evt){
-    evt.preventDefault();
-        //only added latitude and longitude
-       let searchTerm = document.getElementById("searchTerm").value;
-       let latitude=document.getElementById("discovery_latitude_input").value;
-       let longitude=document.getElementById("discovery_longtitude_input").value;
-
-       let url=`http://localhost:3000/api/geotags?latitude=${latitude}&longitude=${longitude}`;
-       if (searchTerm!=""){
-            url+="&searchterm=" + searchTerm
-       }
-       let response = await fetch(url);
-       response.json().then(getMapUpdate).then(updateLists);
-}
+}, true);
 
 
 
-function initSubmitForms(){
+document.getElementById("discoveryFilterForm").addEventListener("submit", function (evt) {
+     evt.preventDefault();
 
-    //Tag
-    document.getElementById("tag-form").addEventListener("submit", submitTag);
-   
-   
-   //Discovery
-   document.getElementById("discoveryFilterForm").addEventListener("submit", submitDiscovery);
+    let searchTerm = document.getElementById("searchTerm").value;
 
-
-
-}
-
-
+    getTagList(searchTerm).then(getMapUpdate).then(updateLists);
+}, true);
 
 // // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
@@ -126,7 +115,5 @@ document.addEventListener("DOMContentLoaded", () => {
     added the new created element in the unordered list
     */
     updateLocation();
-
-    initSubmitForms();
        
 })

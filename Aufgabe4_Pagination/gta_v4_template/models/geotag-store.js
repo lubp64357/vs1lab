@@ -32,13 +32,14 @@
  class InMemoryGeoTagStore {
  
      #geoTags = {};
- 
+     pageItemCount=4;
+
      get geoTags() {
          return this.#geoTags;
      }
  
      addGeoTag(geotag) {
-        let id=uuidv4()
+        let id=uuidv4();
         this.geoTags[id]=geotag;
         return id;
      }
@@ -63,24 +64,48 @@
 
      }
 
- 
-     getNearbyGeoTags(location, radius) {
+     /*
+     Returns all geotags around the location
+     If page=-1 returns all, otherwise returns specific page
+     */
+     getNearbyGeoTags(location, radius, page=0) {
+      
         let nearbyGeoTags = [];
         let distance;
-    
+
+        if(radius===0){ //if no radius just return all tags in array
+            for (let [id, geotag] of Object.entries(this.geoTags)) {
+                nearbyGeoTags.push(geotag);
+         }
+        }
+        else{
         for (let [id, geotag] of Object.entries(this.geoTags)) {
            distance = this.calculateDistance(location, geotag);
             if (distance <= radius) {
                 nearbyGeoTags.push(geotag);
             }
          }
-        return nearbyGeoTags;
+        }
+
+        let itemCount=nearbyGeoTags.length;
+         //gebe seitenhaft zurück, falls -1 alle
+         
+         if(page!=-1){
+            let tmpGeotags=[];
+            for(let i=page*this.pageItemCount; i<(page+1)*this.pageItemCount&&i<nearbyGeoTags.length; i++){
+                tmpGeotags.push(nearbyGeoTags[i]);
+            }
+            return [tmpGeotags, itemCount];
+         }
+
+        return [nearbyGeoTags, itemCount];
     }
 
-    searchNearbyGeoTags(keyword, location,radius) {
-        let nearbyGeoTags=this.getNearbyGeoTags(location, radius);
+    searchNearbyGeoTags(keyword, location,radius, page=0) {
+
+        let nearbyGeoTags=this.getNearbyGeoTags(location, radius, -1)[0];
         keyword=keyword.toLowerCase();
-        return nearbyGeoTags.filter(function(geotag){
+        nearbyGeoTags= nearbyGeoTags.filter(function(geotag){
             if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {//if not -1 keyword is in string so returns true if keyword inside name or hashtag
                 return true;
                 
@@ -90,19 +115,18 @@
                  return false;
              }
         });
+        let itemCount=nearbyGeoTags.length;
+        let pageGeoTags=[];
+
+        for(let i=page*this.pageItemCount; i<(page+1)*this.pageItemCount&&i<nearbyGeoTags.length; i++){
+            pageGeoTags.push(nearbyGeoTags[i]);
+        }
+
+        return [pageGeoTags, itemCount];
+
+
     }
     
-    searchNearbyGeoTags1(keyword) {
-        
-        let matches=[];
-        keyword=keyword.toLowerCase();
-        for (let [id, geotag] of Object.entries(this.geoTags)) {
-            if(geotag.name.toLowerCase().indexOf(keyword) >= 0||geotag.hashtag.toLowerCase().indexOf(keyword) >= 0) {
-                matches.push(geotag);
-            }
-          }
-          return matches;
-    }
 
 
     searchGeoTag(id){
