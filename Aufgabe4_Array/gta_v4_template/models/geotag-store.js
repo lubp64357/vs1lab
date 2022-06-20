@@ -47,10 +47,7 @@
                 console.log(removedGeoTag);
                 this.#geoTags.splice(i, 1);
                 return removedGeoTag;
-            } else {
-                return null;
-            }
-            
+            } 
         }
     }
  
